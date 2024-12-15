@@ -1,4 +1,46 @@
-.example-spacer {
-    flex: 1 1 auto;
-  }
-  
+nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background-image: url(../../../../public/assets/wallpaperflare.com_wallpaper.jpg);
+    background-repeat: no-repeat;
+    background-position: center; 
+    background-size: cover; 
+    height: 6rem;
+    padding: 1rem;
+    border-bottom: 1px solid rgb(129, 129, 129);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Sombras na borda inferior */
+}
+h1{
+    color: white;
+    font-size: 25px;
+    text-shadow: 
+    -1px -1px 0 #222222,
+    1px -1px 0 #222222,
+    -1px 1px 0 #222222,
+    1px 1px 0 #222222;
+}
+i{
+    color: black;
+    font-size: large;
+}
+button{
+    align-items: center; 
+    justify-content: center; 
+    display: flex;
+    height: 30px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border: none;
+    padding: 10px;
+}
+input{
+    height: 30px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border: none;
+    padding: 10px;
+}
+.search-container{
+    display: flex;
+}
