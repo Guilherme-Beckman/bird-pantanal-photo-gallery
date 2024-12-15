@@ -1,0 +1,12 @@
+header{
+    padding: 1rem;
+    width: 50%;
+    margin: 0 20% 0 20%;
+}
+@media (max-width: 768px) {
+    header{
+        margin: auto;
+        width: auto;
+        padding: 1rem;
+    }
+}
