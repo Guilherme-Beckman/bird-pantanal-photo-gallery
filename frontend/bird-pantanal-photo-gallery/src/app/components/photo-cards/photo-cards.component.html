@@ -10,10 +10,9 @@
       <div class="read-more-button">
         <button (click)="showMoreInfo(i)">Read More <i [class]="card.showMore ? 'ri-arrow-up-s-line' : 'ri-arrow-down-s-line'"></i></button>
       </div>
-     
-     <div *ngIf="cards.length > visibleCards.length">
+    </article>
+    <div *ngIf="cards.length > visibleCards.length">
       <button (click)="loadMore()">Carregar Mais</button>
      </div>
-    </article>
   </section>
   
