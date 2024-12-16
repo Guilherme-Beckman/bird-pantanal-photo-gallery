@@ -1,17 +1,19 @@
 <section class="card-container">
-    <article class="card">
+    <article *ngFor="let card of visibleCards; let i=index"  class="card">
       <header class="card-header">
-        <h2>Card Title</h2>
+        <h2>{{ card.title }}</h2>
       </header>
-      <img src="assets/tuiuiu.jpg" alt="Description of the image" loading="lazy">
-      <div *ngIf="showMore" class="card-body">
-        <p>Some informative description of the card content that includes keywords.</p>
+      <img src="card.title" alt="{{ card.alt }}" loading="lazy">
+      <div *ngIf="card.showMore" class="card-body">
+        <p>{{ card.description }}</p>
       </div>
       <div class="read-more-button">
-        <button (click)="showMoreInfo()">Read More <i [class]="showMore ? 'ri-arrow-up-s-line' : 'ri-arrow-down-s-line'"></i></button>
+        <button (click)="showMoreInfo(i)">Read More <i [class]="card.showMore ? 'ri-arrow-up-s-line' : 'ri-arrow-down-s-line'"></i></button>
       </div>
      
-     
+     <div *ngIf="cards.length > visibleCards.length">
+      <button (click)="loadMore()">Carregar Mais</button>
+     </div>
     </article>
   </section>
   
