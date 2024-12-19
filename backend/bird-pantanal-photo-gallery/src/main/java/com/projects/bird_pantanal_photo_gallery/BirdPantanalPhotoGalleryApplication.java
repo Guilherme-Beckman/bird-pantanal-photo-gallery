@@ -9,5 +9,5 @@ public class BirdPantanalPhotoGalleryApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BirdPantanalPhotoGalleryApplication.class, args);
 	}
-
+	
 }
