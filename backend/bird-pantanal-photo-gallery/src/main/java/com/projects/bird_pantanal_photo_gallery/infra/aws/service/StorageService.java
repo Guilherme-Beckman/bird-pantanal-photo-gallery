@@ -13,12 +13,11 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 
 @Service
 public class StorageService {
-	@Value("$amazonProperties.bucketName")
+	@Value("${amazonProperties.bucketName}")
 	private String bucketName;
 	@Autowired
 	private AmazonS3 s3Client;
 	public String uploadFile(MultipartFile multipartFile) {
-		
 		File fileObject = this.convertMultipartFileToFile(multipartFile);
 		String fileName =  System.currentTimeMillis()+"_"+multipartFile.getOriginalFilename();
 		s3Client.putObject(new PutObjectRequest(bucketName, fileName, fileObject));

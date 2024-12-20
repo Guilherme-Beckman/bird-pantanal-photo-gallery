@@ -11,13 +11,14 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 @Configuration
 public class StorageConfig {
-	@Value("$amazonProperties.region")
+	@Value("${amazonProperties.region}")
 	private String region;
-	@Value("$amazonProperties.accessKey")
+	
+	@Value("${amazonProperties.accessKey}")
 	private String accessKey;
-	@Value("$amazonProperties.secretKey")
+	@Value("${amazonProperties.secretKey}")
 	private String secretKey;
-	@Value("$amazonProperties.bucketName")
+	@Value("${amazonProperties.bucketName}")
 	private String bucketName;
 	@Bean
 	AmazonS3 generateS3Client() {
