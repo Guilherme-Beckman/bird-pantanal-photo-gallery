@@ -27,5 +27,12 @@ public class BirdModel implements Serializable {
 
 	@Column(name = "image_url")
 	private String imageUrl;
-
+	
+	public BirdModel(BirdDTO birdDTO) {
+		this.name = birdDTO.name();
+		this.scientificName = birdDTO.scientificName();
+		this.description = birdDTO.description();
+		this.predominantColor = birdDTO.predominantColor();
+		this.imageUrl = birdDTO.imageUrl();
+	}
 }
