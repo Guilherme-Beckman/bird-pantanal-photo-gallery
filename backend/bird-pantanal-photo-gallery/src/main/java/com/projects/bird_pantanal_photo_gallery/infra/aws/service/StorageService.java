@@ -3,55 +3,83 @@ package com.projects.bird_pantanal_photo_gallery.infra.aws.service;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.CannedAccessControlList;
-import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.amazonaws.services.s3.model.S3Object;
-import com.amazonaws.services.s3.model.S3ObjectInputStream;
-import com.amazonaws.util.IOUtils;
 
 @Service
 public class StorageService {
-	@Value("${amazonProperties.bucketName}")
-	private String bucketName;
-	@Autowired
-	private AmazonS3 s3Client;
-	public String uploadFile(MultipartFile multipartFile) {
-		File fileObject = this.convertMultipartFileToFile(multipartFile);
-		String fileName =  System.currentTimeMillis()+"_"+multipartFile.getOriginalFilename();
-		s3Client.putObject(new PutObjectRequest(bucketName, fileName, fileObject).withCannedAcl(CannedAccessControlList.PublicRead));
-		fileObject.delete();
-		return s3Client.getUrl(bucketName, fileName).toString();
-	}
-	public byte[] downloadFile(String fileName) {
-	S3Object s3Object= s3Client.getObject(bucketName, fileName);
-	S3ObjectInputStream inputStream = s3Object.getObjectContent();
-	try {
-		byte[] content= IOUtils .toByteArray(inputStream);
-		return content;
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	return null;
-	}
-	public String deleteFile(String fileName) {
-		s3Client.deleteObject(bucketName, fileName);
-		return "Deleted file:"+fileName;
-	}
-	private File convertMultipartFileToFile(MultipartFile multipartFile) {
-		File convertedFile = new File(multipartFile.getOriginalFilename());
-		try (FileOutputStream fos = new FileOutputStream(convertedFile)){
-			fos.write(multipartFile.getBytes());
-		} catch (Exception e) {
-			System.out.println("Throw Exception");;
-		}
-		return convertedFile;
-	}
+
+    private final S3Client s3Client;
+    
+    @Value("${amazonProperties.bucketName}")
+    private String bucketName;
+
+    public StorageService(S3Client s3Client) {
+        this.s3Client = s3Client;
+    }
+
+    public String uploadFile(MultipartFile multipartFile) {
+        String fileName = System.currentTimeMillis() + "_" + multipartFile.getOriginalFilename();
+        Path tempFile = null;
+
+        try {
+            // Cria arquivo temporário
+            tempFile = Files.createTempFile("temp", multipartFile.getOriginalFilename());
+            Files.write(tempFile, multipartFile.getBytes());
+
+            PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+                    .bucket(bucketName)
+                    .key(fileName)
+                    .acl("public-read") // Controle de acesso público
+                    .build();
+
+            // Envia arquivo para o S3
+            PutObjectResponse response = s3Client.putObject(putObjectRequest, RequestBody.fromFile(tempFile));
+
+            // Retorna a URL pública do arquivo no S3
+            return String.format("https://%s.s3.amazonaws.com/%s", bucketName, fileName);
+
+        } catch (IOException e) {
+            throw new RuntimeException("Erro ao processar o arquivo para upload.", e);
+        } finally {
+            // Exclui arquivo temporário
+            if (tempFile != null) {
+                try {
+                    Files.delete(tempFile);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public byte[] downloadFile(String fileName) {
+        GetObjectRequest getObjectRequest = GetObjectRequest.builder()
+                .bucket(bucketName)
+                .key(fileName)
+                .build();
+
+        // Baixa o arquivo como bytes
+        try {
+            return s3Client.getObjectAsBytes(getObjectRequest).asByteArray();
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao baixar o arquivo: " + fileName, e);
+        }
+    }
+
+    public String deleteFile(String fileName) {
+        DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
+                .bucket(bucketName)
+                .key(fileName)
+                .build();
+
+        s3Client.deleteObject(deleteObjectRequest);
+        return "Deleted file: " + fileName;
+    }
 }
