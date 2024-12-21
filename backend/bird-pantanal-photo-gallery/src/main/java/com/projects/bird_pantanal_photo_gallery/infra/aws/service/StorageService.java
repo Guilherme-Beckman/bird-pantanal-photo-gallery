@@ -3,55 +3,72 @@ package com.projects.bird_pantanal_photo_gallery.infra.aws.service;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.CannedAccessControlList;
-import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.amazonaws.services.s3.model.S3Object;
-import com.amazonaws.services.s3.model.S3ObjectInputStream;
-import com.amazonaws.util.IOUtils;
+import software.amazon.awssdk.core.ResponseInputStream;
+import software.amazon.awssdk.core.sync.RequestBody;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
+import software.amazon.awssdk.services.s3.model.GetObjectRequest;
+import software.amazon.awssdk.services.s3.model.GetObjectResponse;
+import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.utils.IoUtils;
 
 @Service
 public class StorageService {
 	@Value("${amazonProperties.bucketName}")
 	private String bucketName;
 	@Autowired
-	private AmazonS3 s3Client;
+	private S3Client s3Client;
+
 	public String uploadFile(MultipartFile multipartFile) {
 		File fileObject = this.convertMultipartFileToFile(multipartFile);
-		String fileName =  System.currentTimeMillis()+"_"+multipartFile.getOriginalFilename();
-		s3Client.putObject(new PutObjectRequest(bucketName, fileName, fileObject).withCannedAcl(CannedAccessControlList.PublicRead));
+		String fileName = System.currentTimeMillis() + "_" + multipartFile.getOriginalFilename();
+		PutObjectRequest objectRequest = PutObjectRequest.builder().bucket(bucketName).key(fileName)
+				.acl(ObjectCannedACL.PUBLIC_READ).build();
+		s3Client.putObject(objectRequest, RequestBody.fromFile(fileObject));
 		fileObject.delete();
-		return s3Client.getUrl(bucketName, fileName).toString();
+		return s3Client.utilities().getUrl(builder -> builder.bucket(bucketName).key(fileName)).toString();
 	}
+
 	public byte[] downloadFile(String fileName) {
-	S3Object s3Object= s3Client.getObject(bucketName, fileName);
-	S3ObjectInputStream inputStream = s3Object.getObjectContent();
-	try {
-		byte[] content= IOUtils .toByteArray(inputStream);
-		return content;
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+		GetObjectRequest getObjectRequest = GetObjectRequest.builder().bucket(bucketName).key(fileName).build();
+
+		try (ResponseInputStream<GetObjectResponse> s3Object = s3Client.getObject(getObjectRequest);) {
+			InputStream inputStream = s3Object;
+			byte[] content = IoUtils.toByteArray(inputStream);
+			return content;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
-	return null;
-	}
+
 	public String deleteFile(String fileName) {
-		s3Client.deleteObject(bucketName, fileName);
-		return "Deleted file:"+fileName;
+		DeleteObjectRequest deleteObjectRequest= DeleteObjectRequest.builder()
+				.bucket(bucketName)
+				.key(fileName)
+				.build();
+		s3Client.deleteObject(deleteObjectRequest);
+		return "Deleted file:" + fileName;
 	}
+
 	private File convertMultipartFileToFile(MultipartFile multipartFile) {
 		File convertedFile = new File(multipartFile.getOriginalFilename());
-		try (FileOutputStream fos = new FileOutputStream(convertedFile)){
+		try (FileOutputStream fos = new FileOutputStream(convertedFile)) {
 			fos.write(multipartFile.getBytes());
 		} catch (Exception e) {
-			System.out.println("Throw Exception");;
+			System.out.println("Throw Exception");
+			;
 		}
 		return convertedFile;
 	}
+
 }
