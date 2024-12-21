@@ -1,5 +1,7 @@
 package com.projects.bird_pantanal_photo_gallery.service;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +28,19 @@ public class BirdService {
 	}
 	public List<BirdModel> getAllBirds(){
 		return this.birdRepository.findAll();
+	}
+	public void deleteBirdById(Long id) {
+		BirdModel bird = this.birdRepository.findById(id).orElseThrow();
+		String imageUrl = bird.getImageUrl();
+		try {
+			URL url = new URL(imageUrl);
+			String fileName = url.getPath();
+			fileName = fileName.substring(fileName.lastIndexOf("/"+1));
+			this.storageService.deleteFile(fileName);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		this.birdRepository.deleteById(id);
+		
 	}
 }
