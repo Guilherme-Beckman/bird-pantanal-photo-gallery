@@ -20,35 +20,34 @@ import com.projects.bird_pantanal_photo_gallery.infra.aws.service.StorageService
 @RequestMapping("/api/storage")
 public class StorageController {
 
-    @Autowired
-    private StorageService storageService;
+	@Autowired
+	private StorageService storageService;
 
-    @PostMapping("/upload")
-    public ResponseEntity<String> uploadFile(@RequestParam(value = "file") MultipartFile file) {
-        try {
-            String message = storageService.uploadFile(file);
-            return ResponseEntity.status(HttpStatus.OK).body(message);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                                 .body("An error occurred while uploading the file: " + e.getMessage());
-        }
-    }
-    /*@GetMapping("/download/{fileName}")
-    public ResponseEntity<byte[]> downloadFile(@PathVariable String fileName) {
-        byte[] fileContent = storageService.downloadFile(fileName);
+	@PostMapping("/upload")
+	public ResponseEntity<String> uploadFile(@RequestParam(value = "file") MultipartFile file) {
+		try {
+			String message = storageService.uploadFile(file);
+			return ResponseEntity.status(HttpStatus.OK).body(message);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while uploading the file: " + e.getMessage());
+		}
+	}
 
-        if (fileContent == null) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+	@GetMapping("/download/{fileName}")
+	public ResponseEntity<byte[]> downloadFile(@PathVariable String fileName) {
+		byte[] fileContent = storageService.downloadFile(fileName);
 
-        return ResponseEntity.ok()
-                .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + "\"")
-                .body(fileContent);
-    }
-    @DeleteMapping("/delete/{fileName}")
-    public ResponseEntity<String> deleteFile(@PathVariable String fileName) {
-        String responseMessage = storageService.deleteFile(fileName);
-        return ResponseEntity.ok(responseMessage);
-    }*/
+		if (fileContent == null) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+
+		return ResponseEntity.ok().contentType(MediaType.APPLICATION_OCTET_STREAM)
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + "\"").body(fileContent);
+	}/*
+		 * @DeleteMapping("/delete/{fileName}") public ResponseEntity<String>
+		 * deleteFile(@PathVariable String fileName) { String responseMessage =
+		 * storageService.deleteFile(fileName); return
+		 * ResponseEntity.ok(responseMessage); }
+		 */
 }
