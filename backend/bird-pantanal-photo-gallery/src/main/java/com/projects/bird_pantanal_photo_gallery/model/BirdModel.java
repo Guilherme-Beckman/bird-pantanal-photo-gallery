@@ -10,11 +10,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "birds")
 @Data
+@NoArgsConstructor
 public class BirdModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -27,11 +30,14 @@ public class BirdModel implements Serializable {
 
 	@Column(name = "image_url")
 	private String imageUrl;
-	
+
 	public BirdModel(BirdDTO birdDTO) {
 		this.name = birdDTO.name();
 		this.scientificName = birdDTO.scientificName();
 		this.description = birdDTO.description();
 		this.predominantColor = birdDTO.predominantColor();
 	}
+
+
+
 }

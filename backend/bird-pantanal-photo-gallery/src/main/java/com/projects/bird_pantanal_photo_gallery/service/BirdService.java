@@ -1,5 +1,7 @@
 package com.projects.bird_pantanal_photo_gallery.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,5 +23,8 @@ public class BirdService {
 		BirdModel newBird = new BirdModel(birdDTO);
 		newBird.setImageUrl(imageUrl);
 		return this.birdRepository.save(newBird);
+	}
+	public List<BirdModel> getAllBirds(){
+		return this.birdRepository.findAll();
 	}
 }
