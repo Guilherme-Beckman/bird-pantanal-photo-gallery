@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import com.projects.bird_pantanal_photo_gallery.model.BirdModel;
 @Repository
-public interface BirdRepository extends JpaRepository<BirdModel, String>{
+public interface BirdRepository extends JpaRepository<BirdModel, Long>{
 
 }
