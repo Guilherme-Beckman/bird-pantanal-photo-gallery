@@ -19,7 +19,7 @@ public class SecurityConfiguration {
 				.csrf(csrf -> csrf.disable())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authorizeHttpRequests(autorize -> autorize
-						.requestMatchers("/api/storage/**")
+						.requestMatchers("/**")
 						.permitAll().anyRequest().authenticated())
 				.build();
 
