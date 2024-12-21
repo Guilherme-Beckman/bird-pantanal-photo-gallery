@@ -5,7 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -14,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.core.ResponseInputStream;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.GetObjectResponse;
 import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
@@ -51,10 +51,15 @@ public class StorageService {
 		return null;
 	}
 
-	/*
-	 * public String deleteFile(String fileName) { s3Client.deleteObject(bucketName,
-	 * fileName); return "Deleted file:" + fileName; }
-	 */
+	public String deleteFile(String fileName) {
+		DeleteObjectRequest deleteObjectRequest= DeleteObjectRequest.builder()
+				.bucket(bucketName)
+				.key(fileName)
+				.build();
+		s3Client.deleteObject(deleteObjectRequest);
+		return "Deleted file:" + fileName;
+	}
+
 	private File convertMultipartFileToFile(MultipartFile multipartFile) {
 		File convertedFile = new File(multipartFile.getOriginalFilename());
 		try (FileOutputStream fos = new FileOutputStream(convertedFile)) {

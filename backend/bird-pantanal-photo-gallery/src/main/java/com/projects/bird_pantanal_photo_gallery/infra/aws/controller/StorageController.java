@@ -44,10 +44,12 @@ public class StorageController {
 
 		return ResponseEntity.ok().contentType(MediaType.APPLICATION_OCTET_STREAM)
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + "\"").body(fileContent);
-	}/*
-		 * @DeleteMapping("/delete/{fileName}") public ResponseEntity<String>
-		 * deleteFile(@PathVariable String fileName) { String responseMessage =
-		 * storageService.deleteFile(fileName); return
-		 * ResponseEntity.ok(responseMessage); }
-		 */
+	}
+
+	@DeleteMapping("/delete/{fileName}")
+	public ResponseEntity<String> deleteFile(@PathVariable String fileName) {
+		String responseMessage = storageService.deleteFile(fileName);
+		return ResponseEntity.ok(responseMessage);
+	}
+
 }
