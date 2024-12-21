@@ -36,6 +36,7 @@ public class StorageService {
 		fileObject.delete();
 		return s3Client.utilities().getUrl(builder -> builder.bucket(bucketName).key(fileName)).toString();
 	}
+	/*
 	public byte[] downloadFile(String fileName) {
 	S3Object s3Object= s3Client.getObject(bucketName, fileName);
 	S3ObjectInputStream inputStream = s3Object.getObjectContent();
@@ -51,7 +52,7 @@ public class StorageService {
 	public String deleteFile(String fileName) {
 		s3Client.deleteObject(bucketName, fileName);
 		return "Deleted file:"+fileName;
-	}
+	}*/
 	private File convertMultipartFileToFile(MultipartFile multipartFile) {
 		File convertedFile = new File(multipartFile.getOriginalFilename());
 		try (FileOutputStream fos = new FileOutputStream(convertedFile)){

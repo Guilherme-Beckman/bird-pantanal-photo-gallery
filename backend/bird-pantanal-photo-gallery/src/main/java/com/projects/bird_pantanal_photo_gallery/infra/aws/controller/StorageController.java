@@ -33,7 +33,7 @@ public class StorageController {
                                  .body("An error occurred while uploading the file: " + e.getMessage());
         }
     }
-    @GetMapping("/download/{fileName}")
+    /*@GetMapping("/download/{fileName}")
     public ResponseEntity<byte[]> downloadFile(@PathVariable String fileName) {
         byte[] fileContent = storageService.downloadFile(fileName);
 
@@ -50,5 +50,5 @@ public class StorageController {
     public ResponseEntity<String> deleteFile(@PathVariable String fileName) {
         String responseMessage = storageService.deleteFile(fileName);
         return ResponseEntity.ok(responseMessage);
-    }
+    }*/
 }
