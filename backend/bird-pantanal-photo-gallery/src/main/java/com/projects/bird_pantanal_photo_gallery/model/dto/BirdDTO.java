@@ -4,6 +4,5 @@ public record BirdDTO(
 		String name, 
 		String scientificName, 
 		String description, 
-		String predominantColor,
-		String imageUrl) {
+		String predominantColor) {
 }

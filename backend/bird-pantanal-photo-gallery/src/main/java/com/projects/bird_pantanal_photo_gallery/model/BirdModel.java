@@ -33,6 +33,5 @@ public class BirdModel implements Serializable {
 		this.scientificName = birdDTO.scientificName();
 		this.description = birdDTO.description();
 		this.predominantColor = birdDTO.predominantColor();
-		this.imageUrl = birdDTO.imageUrl();
 	}
 }
