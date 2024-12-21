@@ -2,7 +2,9 @@ package com.projects.bird_pantanal_photo_gallery.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -55,4 +57,15 @@ public class BirdController {
         	e.printStackTrace();
         }
     }
+	@GetMapping("/download/{id}")
+	public ResponseEntity<byte[]> downloadFile(@PathVariable Long id) {
+		byte[] fileContent = this.birdService.downloadFile(id);
+
+		if (fileContent == null) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+
+		return ResponseEntity.ok().contentType(MediaType.APPLICATION_OCTET_STREAM)
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + id + "\"").body(fileContent);
+	}
 }

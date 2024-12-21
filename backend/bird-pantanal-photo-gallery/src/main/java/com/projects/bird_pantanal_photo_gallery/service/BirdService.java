@@ -32,15 +32,31 @@ public class BirdService {
 	public void deleteBirdById(Long id) {
 		BirdModel bird = this.birdRepository.findById(id).orElseThrow();
 		String imageUrl = bird.getImageUrl();
-		try {
-			URL url = new URL(imageUrl);
-			String fileName = url.getPath();
-			fileName = fileName.substring(fileName.lastIndexOf("/"+1));
-			this.storageService.deleteFile(fileName);
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
+		String fileName = this.getFileName(imageUrl);
+		this.storageService.deleteFile(fileName);
 		this.birdRepository.deleteById(id);
 		
 	}
+	public byte[] downloadFile(Long id) {
+		BirdModel bird = this.birdRepository.findById(id).orElseThrow();
+		String imageUrl = bird.getImageUrl();
+		String fileName = this.getFileName(imageUrl);
+		System.out.println(fileName);
+		return this.storageService.downloadFile(fileName);
+	}
+	
+	
+	private String getFileName(String imageUrl) {
+		try {
+			URL url = new URL(imageUrl);
+			String fileName = url.getPath();
+			fileName = fileName.substring(fileName.lastIndexOf("/")+1);
+			return fileName;
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	
 }
