@@ -15,6 +15,6 @@ public class UserService {
 
 	public UserModel createUser(UserDTO userDTO) {
 		UserModel newUser = new UserModel(userDTO);
-
+		return this.userRepository.save(newUser);
 	}
 }
