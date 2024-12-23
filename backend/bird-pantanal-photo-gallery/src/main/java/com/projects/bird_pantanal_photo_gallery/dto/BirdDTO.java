@@ -1,4 +1,4 @@
-package com.projects.bird_pantanal_photo_gallery.model.dto;
+package com.projects.bird_pantanal_photo_gallery.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

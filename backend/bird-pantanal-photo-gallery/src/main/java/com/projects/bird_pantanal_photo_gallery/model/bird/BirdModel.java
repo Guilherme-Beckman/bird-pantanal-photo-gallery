@@ -1,7 +1,9 @@
-package com.projects.bird_pantanal_photo_gallery.model;
+package com.projects.bird_pantanal_photo_gallery.model.bird;
 
 import java.io.Serializable;
-import com.projects.bird_pantanal_photo_gallery.model.dto.BirdDTO;
+
+import com.projects.bird_pantanal_photo_gallery.dto.BirdDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
