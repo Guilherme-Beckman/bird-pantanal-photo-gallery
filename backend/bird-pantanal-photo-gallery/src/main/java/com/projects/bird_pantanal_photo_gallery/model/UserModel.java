@@ -1,4 +1,4 @@
-package com.projects.bird_pantanal_photo_gallery.model.user;
+package com.projects.bird_pantanal_photo_gallery.model;
 
 import java.util.UUID;
 

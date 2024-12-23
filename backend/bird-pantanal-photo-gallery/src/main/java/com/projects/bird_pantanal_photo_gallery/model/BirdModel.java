@@ -1,4 +1,4 @@
-package com.projects.bird_pantanal_photo_gallery.model.bird;
+package com.projects.bird_pantanal_photo_gallery.model;
 
 import java.io.Serializable;
 
