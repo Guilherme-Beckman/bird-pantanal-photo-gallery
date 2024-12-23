@@ -9,11 +9,12 @@ import com.projects.bird_pantanal_photo_gallery.repository.UserRepository;
 
 @Service
 public class UserService {
-	
+
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	public UserModel createUser(UserDTO userDTO) {
-		
+		UserModel newUser = new UserModel(userDTO);
+
 	}
 }

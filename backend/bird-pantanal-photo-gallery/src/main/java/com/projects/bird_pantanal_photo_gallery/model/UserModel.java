@@ -2,6 +2,8 @@ package com.projects.bird_pantanal_photo_gallery.model;
 
 import java.util.UUID;
 
+import com.projects.bird_pantanal_photo_gallery.dto.UserDTO;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,5 +24,10 @@ public class UserModel {
 	private String email;
 	private String password;
 	
+	public UserModel (UserDTO userDTO) {
+		this.name = userDTO.name();
+		this.email = userDTO.email();
+		this.password = userDTO.password();
+	}
 	
 }
