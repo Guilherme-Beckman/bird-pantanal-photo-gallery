@@ -18,6 +18,10 @@ import com.projects.bird_pantanal_photo_gallery.model.BirdModel;
 import com.projects.bird_pantanal_photo_gallery.model.dto.BirdDTO;
 import com.projects.bird_pantanal_photo_gallery.service.BirdService;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+
 @RestController
 @RequestMapping("/birds")
 public class BirdController {
@@ -26,7 +30,7 @@ public class BirdController {
 	private BirdService birdService;
 
 	@PostMapping("/create")
-	public ResponseEntity<BirdModel> createBird(@RequestPart("bird") BirdDTO birdDTO,
+	public ResponseEntity<BirdModel> createBird(@NotBlank @NotNull @NotEmpty @RequestPart("bird") BirdDTO birdDTO,
 			@RequestPart("image") MultipartFile multipartFile) {
 		BirdModel newBird = birdService.createBird(birdDTO, multipartFile);
 		return new ResponseEntity<>(newBird, HttpStatus.CREATED);
@@ -39,12 +43,12 @@ public class BirdController {
 	}
 
 	@DeleteMapping("/delete/{id}")
-	public void deleteBirdById(@PathVariable Long id) {
+	public void deleteBirdById(@NotBlank @NotNull @NotEmpty @PathVariable Long id) {
 		this.birdService.deleteBirdById(id);
 	}
 
 	@GetMapping("/download/{id}")
-	public ResponseEntity<byte[]> downloadFile(@PathVariable Long id) {
+	public ResponseEntity<byte[]> downloadFile(@NotBlank @NotNull @NotEmpty @PathVariable Long id) {
 		byte[] fileContent = this.birdService.downloadFile(id);
 		return ResponseEntity.ok().contentType(MediaType.APPLICATION_OCTET_STREAM)
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + id + "\"").body(fileContent);
