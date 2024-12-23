@@ -1,4 +1,5 @@
 package com.projects.bird_pantanal_photo_gallery.controller;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,34 +25,31 @@ import com.projects.bird_pantanal_photo_gallery.service.BirdService;
 @RequestMapping("/birds")
 public class BirdController {
 
-    @Autowired
-    private BirdService birdService;  
+	@Autowired
+	private BirdService birdService;
 
-    @PostMapping("/create")
-    public ResponseEntity<BirdModel> createBird(
-            @RequestPart("bird") BirdDTO birdDTO, 
-            @RequestPart("image") MultipartFile multipartFile) { 
-            BirdModel newBird = birdService.createBird(birdDTO, multipartFile);
-            return new ResponseEntity<>(newBird, HttpStatus.CREATED); 
-    }
-    @GetMapping("/all")
-    public ResponseEntity<List<BirdModel>> getAllBirds(){
-        try {
-            List<BirdModel> birds = birdService.getAllBirds();
-            return new ResponseEntity<>(birds, HttpStatus.FOUND); 
-        } catch (Exception e) {
-        	e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-    @DeleteMapping("/delete/{id}")
-    public void deleteBirdById(@PathVariable Long id){
-        try {
-            this.birdService.deleteBirdById(id);
-        } catch (Exception e) {
-        	e.printStackTrace();
-        }
-    }
+	@PostMapping("/create")
+	public ResponseEntity<BirdModel> createBird(@RequestPart("bird") BirdDTO birdDTO,
+			@RequestPart("image") MultipartFile multipartFile) {
+		BirdModel newBird = birdService.createBird(birdDTO, multipartFile);
+		return new ResponseEntity<>(newBird, HttpStatus.CREATED);
+	}
+
+	@GetMapping("/all")
+	public ResponseEntity<List<BirdModel>> getAllBirds() {
+		List<BirdModel> birds = birdService.getAllBirds();
+		return new ResponseEntity<>(birds, HttpStatus.FOUND);
+	}
+
+	@DeleteMapping("/delete/{id}")
+	public void deleteBirdById(@PathVariable Long id) {
+		try {
+			this.birdService.deleteBirdById(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	@GetMapping("/download/{id}")
 	public ResponseEntity<byte[]> downloadFile(@PathVariable Long id) {
 		byte[] fileContent = this.birdService.downloadFile(id);
