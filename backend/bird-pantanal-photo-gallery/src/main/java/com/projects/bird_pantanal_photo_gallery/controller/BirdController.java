@@ -43,11 +43,8 @@ public class BirdController {
 
 	@DeleteMapping("/delete/{id}")
 	public void deleteBirdById(@PathVariable Long id) {
-		try {
-			this.birdService.deleteBirdById(id);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		this.birdService.deleteBirdById(id);
+
 	}
 
 	@GetMapping("/download/{id}")

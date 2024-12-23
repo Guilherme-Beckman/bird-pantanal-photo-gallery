@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.projects.bird_pantanal_photo_gallery.exceptions.ConverMultiPartFileToFileException;
+import com.projects.bird_pantanal_photo_gallery.exceptions.DownloadFileException;
 
 import software.amazon.awssdk.core.ResponseInputStream;
 import software.amazon.awssdk.core.sync.RequestBody;
@@ -47,10 +48,8 @@ public class StorageService {
 			byte[] content = IoUtils.toByteArray(inputStream);
 			return content;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new DownloadFileException();
 		}
-		return null;
 	}
 
 	public String deleteFile(String fileName) {
