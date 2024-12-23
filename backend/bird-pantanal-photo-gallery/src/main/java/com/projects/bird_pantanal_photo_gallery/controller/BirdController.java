@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.projects.bird_pantanal_photo_gallery.dto.BirdDTO;
 import com.projects.bird_pantanal_photo_gallery.exceptions.ImageIsEmptyException;
-import com.projects.bird_pantanal_photo_gallery.model.bird.BirdModel;
+import com.projects.bird_pantanal_photo_gallery.model.BirdModel;
 import com.projects.bird_pantanal_photo_gallery.service.BirdService;
 
 import jakarta.validation.Valid;

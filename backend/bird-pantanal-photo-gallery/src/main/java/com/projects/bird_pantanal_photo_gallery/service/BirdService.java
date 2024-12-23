@@ -12,7 +12,7 @@ import com.projects.bird_pantanal_photo_gallery.dto.BirdDTO;
 import com.projects.bird_pantanal_photo_gallery.exceptions.BirdNotFoundException;
 import com.projects.bird_pantanal_photo_gallery.exceptions.InvalidImageUrlException;
 import com.projects.bird_pantanal_photo_gallery.infra.aws.service.StorageService;
-import com.projects.bird_pantanal_photo_gallery.model.bird.BirdModel;
+import com.projects.bird_pantanal_photo_gallery.model.BirdModel;
 import com.projects.bird_pantanal_photo_gallery.repository.BirdRepository;
 
 @Service
