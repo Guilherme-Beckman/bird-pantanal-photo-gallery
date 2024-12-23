@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.projects.bird_pantanal_photo_gallery.exceptions.ImageIsEmptyException;
 import com.projects.bird_pantanal_photo_gallery.model.BirdModel;
 import com.projects.bird_pantanal_photo_gallery.model.dto.BirdDTO;
 import com.projects.bird_pantanal_photo_gallery.service.BirdService;
@@ -28,12 +29,15 @@ import jakarta.validation.constraints.NotNull;
 @RestController
 @RequestMapping("/birds")
 public class BirdController {
-	private final String idMessage = "id must not be blank, null or empty";
+	private static final String idMessage = "id must not be blank, null or empty";
 	@Autowired
 	private BirdService birdService;
 
 	@PostMapping("/create")
 	public ResponseEntity<BirdModel> createBird(@Valid @RequestPart("bird") BirdDTO birdDTO, @RequestPart("image") MultipartFile multipartFile) {
+		if (multipartFile.isEmpty()) {
+			throw new ImageIsEmptyException(); 
+		}
 		BirdModel newBird = birdService.createBird(birdDTO, multipartFile);
 		return new ResponseEntity<>(newBird, HttpStatus.CREATED);
 	}
@@ -45,9 +49,10 @@ public class BirdController {
 	}
 
 	@DeleteMapping("/delete/{id}")
-	public void deleteBirdById(
+	public ResponseEntity<Void> deleteBirdById(
 			@NotBlank(message = idMessage) @NotNull(message = idMessage) @NotEmpty(message = idMessage) @PathVariable Long id) {
 		this.birdService.deleteBirdById(id);
+		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
 
 	@GetMapping("/download/{id}")
