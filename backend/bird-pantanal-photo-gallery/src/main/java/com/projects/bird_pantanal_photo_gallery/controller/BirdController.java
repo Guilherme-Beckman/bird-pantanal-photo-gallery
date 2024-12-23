@@ -31,13 +31,8 @@ public class BirdController {
     public ResponseEntity<BirdModel> createBird(
             @RequestPart("bird") BirdDTO birdDTO, 
             @RequestPart("image") MultipartFile multipartFile) { 
-
-        try {
             BirdModel newBird = birdService.createBird(birdDTO, multipartFile);
             return new ResponseEntity<>(newBird, HttpStatus.CREATED); 
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
     }
     @GetMapping("/all")
     public ResponseEntity<List<BirdModel>> getAllBirds(){
