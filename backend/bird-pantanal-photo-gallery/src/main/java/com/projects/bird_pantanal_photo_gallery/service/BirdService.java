@@ -41,7 +41,6 @@ public class BirdService {
 		BirdModel bird = this.birdRepository.findById(id).orElseThrow();
 		String imageUrl = bird.getImageUrl();
 		String fileName = this.getFileName(imageUrl);
-		System.out.println(fileName);
 		return this.storageService.downloadFile(fileName);
 	}
 	

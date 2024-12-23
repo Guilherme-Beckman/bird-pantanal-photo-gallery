@@ -66,7 +66,6 @@ public class StorageService {
 			fos.write(multipartFile.getBytes());
 		} catch (Exception e) {
 			System.out.println("Throw Exception");
-			;
 		}
 		return convertedFile;
 	}
