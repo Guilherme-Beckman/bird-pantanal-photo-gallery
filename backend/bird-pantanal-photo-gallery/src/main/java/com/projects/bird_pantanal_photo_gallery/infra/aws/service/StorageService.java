@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.projects.bird_pantanal_photo_gallery.exceptions.ConverMultiPartFileToFileException;
+import com.projects.bird_pantanal_photo_gallery.exceptions.DownloadFileException;
+
 import software.amazon.awssdk.core.ResponseInputStream;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -45,10 +48,8 @@ public class StorageService {
 			byte[] content = IoUtils.toByteArray(inputStream);
 			return content;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new DownloadFileException();
 		}
-		return null;
 	}
 
 	public String deleteFile(String fileName) {
@@ -65,8 +66,7 @@ public class StorageService {
 		try (FileOutputStream fos = new FileOutputStream(convertedFile)) {
 			fos.write(multipartFile.getBytes());
 		} catch (Exception e) {
-			System.out.println("Throw Exception");
-			;
+			throw new ConverMultiPartFileToFileException();
 		}
 		return convertedFile;
 	}

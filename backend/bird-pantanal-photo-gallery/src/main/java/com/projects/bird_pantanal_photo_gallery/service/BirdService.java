@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.projects.bird_pantanal_photo_gallery.exceptions.BirdNotFoundException;
+import com.projects.bird_pantanal_photo_gallery.exceptions.InvalidImageUrlException;
 import com.projects.bird_pantanal_photo_gallery.infra.aws.service.StorageService;
 import com.projects.bird_pantanal_photo_gallery.model.BirdModel;
 import com.projects.bird_pantanal_photo_gallery.model.dto.BirdDTO;
@@ -30,7 +32,7 @@ public class BirdService {
 		return this.birdRepository.findAll();
 	}
 	public void deleteBirdById(Long id) {
-		BirdModel bird = this.birdRepository.findById(id).orElseThrow();
+		BirdModel bird = this.birdRepository.findById(id).orElseThrow(BirdNotFoundException::new);
 		String imageUrl = bird.getImageUrl();
 		String fileName = this.getFileName(imageUrl);
 		this.storageService.deleteFile(fileName);
@@ -38,10 +40,9 @@ public class BirdService {
 		
 	}
 	public byte[] downloadFile(Long id) {
-		BirdModel bird = this.birdRepository.findById(id).orElseThrow();
+		BirdModel bird = this.birdRepository.findById(id).orElseThrow(BirdNotFoundException::new);
 		String imageUrl = bird.getImageUrl();
 		String fileName = this.getFileName(imageUrl);
-		System.out.println(fileName);
 		return this.storageService.downloadFile(fileName);
 	}
 	
@@ -53,9 +54,8 @@ public class BirdService {
 			fileName = fileName.substring(fileName.lastIndexOf("/")+1);
 			return fileName;
 		} catch (MalformedURLException e) {
-			e.printStackTrace();
+			throw new InvalidImageUrlException();
 		}
-		return null;
 	}
 	
 	
