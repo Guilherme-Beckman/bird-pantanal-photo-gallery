@@ -1,6 +1,10 @@
 package com.projects.bird_pantanal_photo_gallery.model.user;
 
+import java.util.UUID;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,6 +14,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class UserModel {
+	@GeneratedValue(strategy = GenerationType.UUID)
+	private UUID id;
 	private String name;
 	private String email;
 	private String password;
