@@ -44,17 +44,11 @@ public class BirdController {
 	@DeleteMapping("/delete/{id}")
 	public void deleteBirdById(@PathVariable Long id) {
 		this.birdService.deleteBirdById(id);
-
 	}
 
 	@GetMapping("/download/{id}")
 	public ResponseEntity<byte[]> downloadFile(@PathVariable Long id) {
 		byte[] fileContent = this.birdService.downloadFile(id);
-
-		if (fileContent == null) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
-
 		return ResponseEntity.ok().contentType(MediaType.APPLICATION_OCTET_STREAM)
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + id + "\"").body(fileContent);
 	}
