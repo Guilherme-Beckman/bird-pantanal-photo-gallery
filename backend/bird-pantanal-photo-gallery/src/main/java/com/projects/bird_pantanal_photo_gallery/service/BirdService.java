@@ -47,9 +47,10 @@ public class BirdService {
 		if (birdUpdateDTO.predominantColor() != null) bird.setPredominantColor(birdUpdateDTO.predominantColor());
 		
 		if (multipartFile != null && !multipartFile.isEmpty()) {
-			String imageUrl = this.storageService.uploadFile(multipartFile);
-			this.storageService.deleteFile(this.getFileName(imageUrl));
-			bird.setImageUrl(imageUrl);
+			String oldImageUrl = bird.getImageUrl();
+			String newImageUrl = this.storageService.uploadFile(multipartFile);
+			this.storageService.deleteFile(this.getFileName(oldImageUrl));
+			bird.setImageUrl(newImageUrl);
 		}
 
 		return this.birdRepository.save(bird);

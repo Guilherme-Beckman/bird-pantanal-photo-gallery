@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,7 +33,7 @@ public class StorageService {
 
 	public String uploadFile(MultipartFile multipartFile) {
 		File fileObject = this.convertMultipartFileToFile(multipartFile);
-		String fileName = System.currentTimeMillis() + "_" + multipartFile.getOriginalFilename();
+		String fileName = UUID.randomUUID().toString();
 		PutObjectRequest objectRequest = PutObjectRequest.builder().bucket(bucketName).key(fileName)
 				.acl(ObjectCannedACL.PUBLIC_READ).build();
 		s3Client.putObject(objectRequest, RequestBody.fromFile(fileObject));
