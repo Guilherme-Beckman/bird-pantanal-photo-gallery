@@ -3,6 +3,7 @@ package com.projects.bird_pantanal_photo_gallery.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -42,7 +43,6 @@ public class BirdController {
 		BirdModel newBird = birdService.createBird(birdDTO, multipartFile);
 		return new ResponseEntity<>(newBird, HttpStatus.CREATED);
 	}
-
 	@GetMapping("/all")
 	public ResponseEntity<List<BirdModel>> getAllBirds() {
 		List<BirdModel> birds = birdService.getAllBirds();
