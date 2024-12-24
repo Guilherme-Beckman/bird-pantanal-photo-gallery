@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.projects.bird_pantanal_photo_gallery.dto.BirdDTO;
+import com.projects.bird_pantanal_photo_gallery.dto.BirdUpdateDTO;
 import com.projects.bird_pantanal_photo_gallery.exceptions.ImageIsEmptyException;
 import com.projects.bird_pantanal_photo_gallery.model.BirdModel;
 import com.projects.bird_pantanal_photo_gallery.service.BirdService;
@@ -45,6 +47,13 @@ public class BirdController {
 	public ResponseEntity<List<BirdModel>> getAllBirds() {
 		List<BirdModel> birds = birdService.getAllBirds();
 		return new ResponseEntity<>(birds, HttpStatus.OK);
+	}
+
+	@PutMapping("/update/{id}")
+	public ResponseEntity<BirdModel> createBird(@NotNull(message = idMessage) @PathVariable Long id,
+			@RequestPart("bird") BirdUpdateDTO birdUpdateDTO, @RequestPart("image") MultipartFile multipartFile) {
+		BirdModel newBird = birdService.updateBird(id, birdUpdateDTO, multipartFile);
+		return new ResponseEntity<>(newBird, HttpStatus.CREATED);
 	}
 
 	@DeleteMapping("/delete/{id}")
