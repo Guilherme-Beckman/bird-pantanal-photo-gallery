@@ -1,13 +1,13 @@
 package com.projects.bird_pantanal_photo_gallery.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.projects.bird_pantanal_photo_gallery.dto.LoginRequestDTO;
 import com.projects.bird_pantanal_photo_gallery.dto.RegisterRequestDTO;
 import com.projects.bird_pantanal_photo_gallery.dto.ResponseDTO;
@@ -23,11 +23,10 @@ public class AuthController {
     	ResponseDTO responseDTO = this.authService.login(body);
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
-
-
+    /*
     @PostMapping("/register")
     public ResponseEntity<ResponseDTO> register(@RequestBody RegisterRequestDTO body){
     	ResponseDTO responseDTO = this.authService.register(body);
         return new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
-    }
+    }*/
 }
