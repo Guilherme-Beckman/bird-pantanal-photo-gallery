@@ -1,15 +1,15 @@
 package com.projects.bird_pantanal_photo_gallery.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.projects.bird_pantanal_photo_gallery.dto.LoginRequestDTO;
-import com.projects.bird_pantanal_photo_gallery.dto.RegisterRequestDTO;
 import com.projects.bird_pantanal_photo_gallery.dto.ResponseDTO;
 import com.projects.bird_pantanal_photo_gallery.service.AuthService;
 
@@ -18,6 +18,7 @@ import com.projects.bird_pantanal_photo_gallery.service.AuthService;
 public class AuthController {
 	@Autowired
 	private AuthService authService;
+    @CrossOrigin(origins = "http://localhost:4200") 
     @PostMapping("/login")
     public ResponseEntity<ResponseDTO> login(@RequestBody LoginRequestDTO body){
     	ResponseDTO responseDTO = this.authService.login(body);
