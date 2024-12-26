@@ -11,7 +11,7 @@ public class UserNotFoundException extends RestException{
 	public ProblemDetail toProblemDetail() {
 		var pb = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
 		pb.setTitle("User not fond");
-		pb.setDetail("User bird don't exits in the database");
+		pb.setDetail("User  don't exits in the database");
 		return pb;
 	}
 }
