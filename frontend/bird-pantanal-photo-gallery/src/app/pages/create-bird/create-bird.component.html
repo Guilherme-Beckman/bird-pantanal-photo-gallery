@@ -1,4 +1,5 @@
-<div class="form-container">
+<div class="form-body">
+  <div class="form-container">
     <form (ngSubmit)="onSubmit()" [formGroup]="birdForm">
         <h1>Create Bird</h1>
         <div class="form-group">
@@ -27,4 +28,5 @@
 
           <button type="submit" [disabled]="!birdForm.valid">Create Bird</button>
     </form>
+</div>
 </div>
