@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { CardsService } from '../../services/cards/cards.service';
+import { BirdsService } from '../../services/bird/birds.service';
 
 @Component({
   selector: 'app-photo-cards',
@@ -11,9 +11,9 @@ import { CardsService } from '../../services/cards/cards.service';
 export class PhotoCardsComponent {
   cards: any[] = [];
   visibleCards: any[] = [];
-  constructor(private cardService: CardsService){}
+  constructor(private birdsService: BirdsService){}
   ngOnInit(){
-    this.cardService.getAllBirdsForCards().subscribe(data=>{
+    this.birdsService.getAllBirdsForCards().subscribe(data=>{
       this.cards = data;
       this.visibleCards = this.cards.slice(0,6);
     });
