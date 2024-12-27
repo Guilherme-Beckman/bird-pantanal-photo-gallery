@@ -11,7 +11,6 @@ export class AuthService {
 
   login(email: string, password: string):Observable<any>{
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
-    
     return this.httpClient.post<any>(this.apiUrl, {email, password, headers})
   }
   saveToken(token: string): void{
