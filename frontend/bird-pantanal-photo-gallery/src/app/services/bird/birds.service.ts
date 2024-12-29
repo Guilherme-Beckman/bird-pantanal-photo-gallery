@@ -10,14 +10,15 @@ import { BirdDTO } from '../../dto/bird.dto';
 export class BirdsService {
   private apiUrl = 'http://localhost:8080/birds/';
   constructor(private httpClient:HttpClient) { }
+  
 
   getAllBirdsForCards(): Observable<any[]>{
     return this.httpClient.get<any>(this.apiUrl+"all");
   }
   createBird(birdDTO: BirdDTO,birdForm: FormData): void {
-    const authToken = localStorage.getItem('authToken');
+   /* const authToken = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', 'Bearer ' + authToken);
-    const options = { headers: headers };
+    const options = { headers: headers };*/
     birdForm.append(
       'bird',
       new Blob([JSON.stringify( birdDTO )], {
@@ -25,7 +26,30 @@ export class BirdsService {
       })
       
   );
-  this.httpClient.post<any>(`${this.apiUrl}create`, birdForm, options).subscribe({
+  this.httpClient.post<any>(`${this.apiUrl}create`, birdForm/*, options*/).subscribe({
+    next: (response) => {
+      console.log('Pássaro criado com sucesso:', response);
+    },
+    error: (error) => {
+      console.error('Erro ao criar o pássaro:', error);
+    },
+    complete: () => {
+      console.log('Requisição completa.');
+    }
+  });
+  
+  }
+
+  updateBird(birdDTO: BirdDTO,birdForm: FormData, birdId: string): void {
+
+    birdForm.append(
+      'bird',
+      new Blob([JSON.stringify( birdDTO )], {
+          type: 'application/json'
+      })
+      
+  );
+  this.httpClient.post<any>(`${this.apiUrl}update/${birdId}`, birdForm).subscribe({
     next: (response) => {
       console.log('Pássaro criado com sucesso:', response);
     },
