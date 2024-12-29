@@ -51,6 +51,12 @@ public class BirdController {
 		List<BirdModel> birds = birdService.getAllBirds();
 		return new ResponseEntity<>(birds, HttpStatus.OK);
 	}
+	@Cacheable("birds")
+	@GetMapping("/{id}")
+	public ResponseEntity<BirdModel> getBirdById(@NotNull (message = idMessage)@PathVariable Long id) {
+		BirdModel birds = birdService.getBirdById(id);
+		return new ResponseEntity<>(birds, HttpStatus.OK);
+	}
 	@CacheEvict(value = "birds", allEntries = true)
 	@PutMapping("/update/{id}")
 	public ResponseEntity<BirdModel> createBird(@NotNull(message = idMessage) @PathVariable Long id,

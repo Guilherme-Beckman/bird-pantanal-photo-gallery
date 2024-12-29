@@ -23,7 +23,7 @@ public class BirdService {
 	@Autowired
 	private StorageService storageService;
 
-	private BirdModel getBirdById(Long id) {
+	public BirdModel getBirdById(Long id) {
 		BirdModel bird = this.birdRepository.findById(id).orElseThrow(BirdNotFoundException::new);
 		return bird;
 	}
