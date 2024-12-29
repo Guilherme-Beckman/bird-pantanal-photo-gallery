@@ -11,14 +11,13 @@ export class BirdsService {
   private apiUrl = 'http://localhost:8080/birds/';
   constructor(private httpClient:HttpClient) { }
   
-
+  getBirdById(id: string){
+    return this.httpClient.get<any>(this.apiUrl + id);
+  }    
   getAllBirdsForCards(): Observable<any[]>{
     return this.httpClient.get<any>(this.apiUrl+"all");
   }
   createBird(birdDTO: BirdDTO,birdForm: FormData): void {
-   /* const authToken = localStorage.getItem('authToken');
-    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + authToken);
-    const options = { headers: headers };*/
     birdForm.append(
       'bird',
       new Blob([JSON.stringify( birdDTO )], {
@@ -41,7 +40,6 @@ export class BirdsService {
   }
 
   updateBird(birdDTO: BirdDTO,birdForm: FormData, birdId: string): void {
-
     birdForm.append(
       'bird',
       new Blob([JSON.stringify( birdDTO )], {
@@ -49,7 +47,7 @@ export class BirdsService {
       })
       
   );
-  this.httpClient.post<any>(`${this.apiUrl}update/${birdId}`, birdForm).subscribe({
+  this.httpClient.put<any>(`${this.apiUrl}update/${birdId}`, birdForm).subscribe({
     next: (response) => {
       console.log('Pássaro criado com sucesso:', response);
     },
