@@ -41,11 +41,19 @@ public class BirdService {
 
 	public BirdModel updateBird(Long id, BirdUpdateDTO birdUpdateDTO, MultipartFile multipartFile) {
 		BirdModel bird = this.getBirdById(id);
-		if (birdUpdateDTO.name() != null) bird.setName(birdUpdateDTO.name());
-		if (birdUpdateDTO.scientificName() != null) bird.setScientificName(birdUpdateDTO.scientificName());
-		if (birdUpdateDTO.description() != null) bird.setDescription(birdUpdateDTO.description());
-		if (birdUpdateDTO.predominantColor() != null) bird.setPredominantColor(birdUpdateDTO.predominantColor());
-		
+		if (birdUpdateDTO.name() != null && !birdUpdateDTO.name().isBlank()) {
+		    bird.setName(birdUpdateDTO.name());
+		}
+		if (birdUpdateDTO.scientificName() != null && !birdUpdateDTO.scientificName().isBlank()) {
+		    bird.setScientificName(birdUpdateDTO.scientificName());
+		}
+		if (birdUpdateDTO.description() != null && !birdUpdateDTO.description().isBlank()) {
+		    bird.setDescription(birdUpdateDTO.description());
+		}
+		if (birdUpdateDTO.predominantColor() != null && !birdUpdateDTO.predominantColor().isBlank()) {
+		    bird.setPredominantColor(birdUpdateDTO.predominantColor());
+		}
+
 		if (multipartFile != null && !multipartFile.isEmpty()) {
 			String oldImageUrl = bird.getImageUrl();
 			String newImageUrl = this.storageService.uploadFile(multipartFile);

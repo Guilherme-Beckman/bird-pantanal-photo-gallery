@@ -57,10 +57,11 @@ public class BirdController {
 		BirdModel birds = birdService.getBirdById(id);
 		return new ResponseEntity<>(birds, HttpStatus.OK);
 	}
+	@CrossOrigin(origins = "http://localhost:4200")
 	@CacheEvict(value = "birds", allEntries = true)
 	@PutMapping("/update/{id}")
 	public ResponseEntity<BirdModel> createBird(@NotNull(message = idMessage) @PathVariable Long id,
-			@RequestPart("bird") BirdUpdateDTO birdUpdateDTO, @RequestPart("image") MultipartFile multipartFile) {
+			@RequestPart("bird") BirdUpdateDTO birdUpdateDTO, @RequestPart(value = "image", required = false) MultipartFile multipartFile) {
 		BirdModel newBird = birdService.updateBird(id, birdUpdateDTO, multipartFile);
 		return new ResponseEntity<>(newBird, HttpStatus.CREATED);
 	}
