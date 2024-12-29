@@ -31,7 +31,6 @@ export class UpdateBirdComponent {
 ngOnInit():void{
   this.route.queryParams.subscribe((params) => {
     this.birdId = params['id'];
-    console.log('ID do parâmetro:', this.birdId);
   });
   this.bird = this.birdService.getBirdById(this.birdId).subscribe(data=>{
     this.bird =data;
