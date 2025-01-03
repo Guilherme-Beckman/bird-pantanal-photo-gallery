@@ -1,11 +1,13 @@
 <section class="card-container">
     <article *ngFor="let card of visibleCards; let i=index"  class="card">
       <header class="card-header">
-        <h2>{{ card.title }}</h2>
+        <h2>{{ card.name }}</h2>
       </header>
-      <img src="card.title" alt="{{ card.alt }}" loading="lazy">
+      <img src="{{ card.imageUrl }}" alt="alt image " loading="lazy">
       <div *ngIf="card.showMore" class="card-body">
         <p>{{ card.description }}</p>
+        <p>Nome Cientifico: {{ card.scientificName }}</p>
+        <p>Cor Predominante: {{ card.predominantColor }}</p>
       </div>
       <div class="read-more-button">
         <button (click)="showMoreInfo(i)">Read More <i [class]="card.showMore ? 'ri-arrow-up-s-line' : 'ri-arrow-down-s-line'"></i></button>
