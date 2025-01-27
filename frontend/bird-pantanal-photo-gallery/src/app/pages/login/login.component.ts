@@ -31,15 +31,13 @@ export class LoginComponent {
         this.messageService.setSuccessMessage(
           'Login bem-sucedido, token armazenado!', next
         );
-        this.isLoading = false;
       },
       error: (error) =>  {
         this.messageService.setErrorMessage(
           'Erro ao fazer login: ', error
         );
-        this.isLoading = false;
       },
-      complete: () => console.log('Requisição de login completa.'),
+      complete: () => this.isLoading = false,
     });
   }
 }
