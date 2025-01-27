@@ -1,18 +1,5 @@
-<app-messages-for-request errorMessage="{{ errorMessage }}" successMessage="{{ successMessage }}"></app-messages-for-request>
+<app-messages-for-request [errorMessage]="(errorMessage$ | async) ?? ''" [successMessage]="(successMessage$ | async) ?? ''"></app-messages-for-request>
 <app-loading-spinner [isLoading]="isLoading"></app-loading-spinner>
-<div class="form-container">
-  <form (ngSubmit)="onLogin()">
-    <div>
-      <label for="email">Email:</label>
-      <input type="text" id="email" name="email" [(ngModel)]="email" placeholder="johndoe@gmail.com" required>
-    </div>
-    <div>
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" [(ngModel)]="password" required>
-    </div>
-    <button type="submit" [disabled]="isLoading">Login</button>
-  </form>
-</div>
-
+<app-login-form  [isLoading]="isLoading" (loginSubmit)="onLogin($event)" ></app-login-form>
 
   
