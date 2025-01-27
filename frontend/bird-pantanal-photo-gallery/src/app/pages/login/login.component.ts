@@ -13,7 +13,7 @@ import { LoginFormComponent } from '../../components/login-form/login-form.compo
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-  successMessage: string = 'teste';
+  successMessage: string = '';
   errorMessage: string = '';
   isLoading: boolean = false;
 
