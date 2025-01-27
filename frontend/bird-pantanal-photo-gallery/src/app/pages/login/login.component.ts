@@ -23,26 +23,26 @@ export class LoginComponent {
     this.isLoading = true;
     const { email, password } = event;
     this.authService.login(email, password).subscribe({
-      next: (response) => {
-        this.isLoading = false;
-        this.authService.saveToken(response.token);
-        this.successMessage = 'Login bem-sucedido, token armazenado!';
-        this.errorMessage = '';
-        setTimeout(() => {
-          this.successMessage = '';
-        }, 2000);
-      },
-      error: (error) => {
-        this.isLoading = false;
-        this.errorMessage = 'Erro ao fazer login: ' + error.error.title;
-        this.successMessage = '';
-        setTimeout(() => {
-          this.errorMessage = '';
-        }, 2000);
-      },
-      complete: () => {
-        console.log('Requisição de login completa.');
-      },
+      next: (response) => this.handleLoginSuccess(response),
+      error: (error) => this.handleLoginError(error),
+      complete: () => console.log('Requisição de login completa.'),
     });
+  }
+
+  private handleLoginSuccess(response: any): void {
+    this.isLoading = false;
+    this.authService.saveToken(response.token);
+    this.successMessage = 'Login bem-sucedido, token armazenado!';
+    setTimeout(() => {
+      this.successMessage = '';
+    }, 2000);
+  }
+
+  private handleLoginError(error: any): void {
+    this.isLoading = false;
+    this.errorMessage = 'Erro ao fazer login: ' + error.error.title;
+    setTimeout(() => {
+      this.errorMessage = '';
+    }, 2000);
   }
 }
