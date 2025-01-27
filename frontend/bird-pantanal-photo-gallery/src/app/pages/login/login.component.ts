@@ -2,10 +2,11 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth/auth.service';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { LoadingSpinnerComponent } from '../../components/loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, FormsModule, CommonModule],
+  imports: [ReactiveFormsModule, FormsModule, CommonModule, LoadingSpinnerComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -19,6 +20,7 @@ export class LoginComponent {
   constructor(private authService: AuthService){}
 
   onLogin():void{
+    this.isLoading = true;
     this.authService.login(this.email, this.password).subscribe({
       next: (response) =>{
         this.isLoading = false;
@@ -31,7 +33,7 @@ export class LoginComponent {
       },
       error: (error) => {
         this.isLoading = false;
-        this.errorMessage = 'Erro ao fazer login' + error.error.detail;
+        this.errorMessage = 'Erro ao fazer login: ' + error.error.title;
         this.successMessage = '';
         setTimeout(() => {
           this.errorMessage = '';
