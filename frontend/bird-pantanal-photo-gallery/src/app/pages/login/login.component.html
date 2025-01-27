@@ -1,5 +1,5 @@
 <app-messages-for-request errorMessage="{{ errorMessage }}" successMessage="{{ successMessage }}"></app-messages-for-request>
 <app-loading-spinner [isLoading]="isLoading"></app-loading-spinner>
-<app-login-form></app-login-form>
+<app-login-form  [isLoading]="isLoading" (loginSubmit)="onLogin($event)" ></app-login-form>
 
   

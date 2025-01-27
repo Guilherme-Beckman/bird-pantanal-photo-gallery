@@ -13,18 +13,17 @@ import { LoginFormComponent } from '../../components/login-form/login-form.compo
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-  email: string = '';
-  password: string ='';
   successMessage: string = 'teste';
   errorMessage: string = '';
   isLoading: boolean = false;
 
-  constructor(private authService: AuthService){}
+  constructor(private authService: AuthService) {}
 
-  onLogin():void{
+  onLogin(event: { email: string; password: string }): void {
     this.isLoading = true;
-    this.authService.login(this.email, this.password).subscribe({
-      next: (response) =>{
+    const { email, password } = event;
+    this.authService.login(email, password).subscribe({
+      next: (response) => {
         this.isLoading = false;
         this.authService.saveToken(response.token);
         this.successMessage = 'Login bem-sucedido, token armazenado!';
@@ -43,7 +42,7 @@ export class LoginComponent {
       },
       complete: () => {
         console.log('Requisição de login completa.');
-      }
+      },
     });
-  };
+  }
 }
