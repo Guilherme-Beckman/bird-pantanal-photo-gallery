@@ -4,10 +4,11 @@ import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { LoadingSpinnerComponent } from '../../components/loading-spinner/loading-spinner.component';
 import { MessagesForRequestComponent } from '../../components/messages-for-request/messages-for-request.component';
+import { LoginFormComponent } from '../../components/login-form/login-form.component';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, FormsModule, CommonModule, LoadingSpinnerComponent, MessagesForRequestComponent],
+  imports: [ReactiveFormsModule, FormsModule, CommonModule, LoadingSpinnerComponent, MessagesForRequestComponent, LoginFormComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
