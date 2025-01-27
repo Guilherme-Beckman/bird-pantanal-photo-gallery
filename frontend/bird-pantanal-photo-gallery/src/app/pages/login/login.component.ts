@@ -3,17 +3,18 @@ import { AuthService } from '../../services/auth/auth.service';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { LoadingSpinnerComponent } from '../../components/loading-spinner/loading-spinner.component';
+import { MessagesForRequestComponent } from '../../components/messages-for-request/messages-for-request.component';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, FormsModule, CommonModule, LoadingSpinnerComponent],
+  imports: [ReactiveFormsModule, FormsModule, CommonModule, LoadingSpinnerComponent, MessagesForRequestComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
   email: string = '';
   password: string ='';
-  successMessage: string = '';
+  successMessage: string = 'teste';
   errorMessage: string = '';
   isLoading: boolean = false;
 

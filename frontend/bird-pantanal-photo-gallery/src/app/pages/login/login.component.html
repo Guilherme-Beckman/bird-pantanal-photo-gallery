@@ -1,3 +1,5 @@
+<app-messages-for-request errorMessage="{{ errorMessage }}" successMessage="{{ successMessage }}"></app-messages-for-request>
+<app-loading-spinner [isLoading]="isLoading"></app-loading-spinner>
 <div class="form-container">
   <form (ngSubmit)="onLogin()">
     <div>
@@ -10,10 +12,7 @@
     </div>
     <button type="submit" [disabled]="isLoading">Login</button>
   </form>
-  <div *ngIf="successMessage" class="successMessage">{{ successMessage }}</div>
-  <div *ngIf="errorMessage" class="errorMessage">{{ errorMessage }}</div>
-  <app-loading-spinner [isLoading]="isLoading"></app-loading-spinner>
 </div>
- 
+
 
   

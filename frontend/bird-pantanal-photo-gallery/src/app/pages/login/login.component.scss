@@ -65,25 +65,7 @@ form {
     }
   }
 }
-.successMessage, .errorMessage {
-  position: absolute;
-  top: 10px;
-  width: 100%;
-  max-width: 400px;
-  padding: 0.75rem;
-  border-radius: 4px;
-  text-align: center;
-  font-size: 1rem;
-  color: white;
-}
 
-.successMessage {
-  background-color: #28a745;
-}
-
-.errorMessage {
-  background-color: #dc3545;
-}
 @media (max-width: 600px) {
   form {
     padding: 1.5rem;
