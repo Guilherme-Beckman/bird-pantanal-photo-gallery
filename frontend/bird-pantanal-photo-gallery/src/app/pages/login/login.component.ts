@@ -4,7 +4,8 @@ import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { LoadingSpinnerComponent } from '../../components/loading-spinner/loading-spinner.component';
 import { MessagesForRequestComponent } from '../../components/messages-for-request/messages-for-request.component';
-import { LoginFormComponent } from '../../components/login-form/login-form.component';
+import { LoginFormComponent } from '../../component/login-form/login-form.component';
+import { MessageServiceService } from '../../services/message/message-service.service';
 
 @Component({
   selector: 'app-login',
@@ -13,36 +14,32 @@ import { LoginFormComponent } from '../../components/login-form/login-form.compo
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-  successMessage: string = '';
-  errorMessage: string = '';
-  isLoading: boolean = false;
+  successMessage$;
+  errorMessage$;
+  isLoading = false;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private messageService: MessageServiceService) {
+    this.successMessage$ = this.messageService.sucessMessage$;
+    this.errorMessage$ = this.messageService.errorMessage$;
+  }
 
   onLogin(event: { email: string; password: string }): void {
     this.isLoading = true;
     const { email, password } = event;
     this.authService.login(email, password).subscribe({
-      next: (response) => this.handleLoginSuccess(response),
-      error: (error) => this.handleLoginError(error),
+      next: (next) =>{
+        this.messageService.setSuccessMessage(
+          'Login bem-sucedido, token armazenado!', next
+        );
+        this.isLoading = false;
+      },
+      error: (error) =>  {
+        this.messageService.setErrorMessage(
+          'Erro ao fazer login: ', error
+        );
+        this.isLoading = false;
+      },
       complete: () => console.log('Requisição de login completa.'),
     });
-  }
-
-  private handleLoginSuccess(response: any): void {
-    this.isLoading = false;
-    this.authService.saveToken(response.token);
-    this.successMessage = 'Login bem-sucedido, token armazenado!';
-    setTimeout(() => {
-      this.successMessage = '';
-    }, 2000);
-  }
-
-  private handleLoginError(error: any): void {
-    this.isLoading = false;
-    this.errorMessage = 'Erro ao fazer login: ' + error.error.title;
-    setTimeout(() => {
-      this.errorMessage = '';
-    }, 2000);
   }
 }
