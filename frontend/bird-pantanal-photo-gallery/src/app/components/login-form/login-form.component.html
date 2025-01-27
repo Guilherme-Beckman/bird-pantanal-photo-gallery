@@ -1,1 +1,14 @@
-<p>login-form works!</p>
+<div class="form-container">
+    <form (ngSubmit)="onSubmit()">
+      <div>
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" [(ngModel)]="email" placeholder="johndoe@gmail.com" required>
+      </div>
+      <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" [(ngModel)]="password" required>
+      </div>
+      <button type="submit" [disabled]="isLoading">Login</button>
+    </form>
+  </div>
+  
