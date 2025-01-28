@@ -3,10 +3,13 @@ import { MessageServiceService } from '../../services/message/message-service.se
 import { BirdsService } from '../../services/bird/birds.service';
 import { BirdDTO } from '../../dto/bird.dto';
 import { UpdateBirdFormComponent } from '../../components/update-bird-form/update-bird-form.component';
+import { MessagesForRequestComponent } from '../../components/messages-for-request/messages-for-request.component';
+import { LoadingSpinnerComponent } from '../../components/loading-spinner/loading-spinner.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-update-bird',
-  imports: [UpdateBirdFormComponent],
+  imports: [UpdateBirdFormComponent, MessagesForRequestComponent, LoadingSpinnerComponent, CommonModule],
   templateUrl: './update-bird.component.html',
   styleUrl: './update-bird.component.scss'
 })
