@@ -40,4 +40,7 @@ export class BirdsService {
   return this.httpClient.put<any>(`${this.apiUrl}update/${birdId}`, birdForm);
   
   }
+  deleteBirdById(birdId: string){
+    return this.httpClient.delete<any>(`${this.apiUrl}delete/${birdId}`);
+  }  
 }

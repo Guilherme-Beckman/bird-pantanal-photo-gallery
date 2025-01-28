@@ -2,6 +2,7 @@
     <article *ngFor="let card of visibleCards; let i=index"  class="card">
       <header class="card-header">
         <app-edit-bird-button [birdId]="card.id"></app-edit-bird-button>
+        <app-delete-bird-button [birdId]="card.id"></app-delete-bird-button>
         <h2>{{ card.name }}</h2>
       </header>
       <img src="{{ card.imageUrl }}" alt="alt image " loading="lazy">
