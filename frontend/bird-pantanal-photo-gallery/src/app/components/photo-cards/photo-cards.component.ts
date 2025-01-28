@@ -2,10 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { BirdsService } from '../../services/bird/birds.service';
 import { EditBirdButtonComponent } from '../edit-bird-button/edit-bird-button.component';
+import { DeleteBirdButtonComponent } from '../delete-bird-button/delete-bird-button.component';
 
 @Component({
   selector: 'app-photo-cards',
-  imports: [CommonModule, EditBirdButtonComponent],
+  imports: [CommonModule, EditBirdButtonComponent, DeleteBirdButtonComponent],
   templateUrl: './photo-cards.component.html',
   styleUrl: './photo-cards.component.scss'
 })
