@@ -29,7 +29,7 @@ export class BirdsService {
   
   }
 
-  updateBird(birdDTO: BirdDTO,birdForm: FormData, birdId: string): void {
+  updateBird(birdDTO: BirdDTO,birdForm: FormData, birdId: string): Observable<any> {  
     birdForm.append(
       'bird',
       new Blob([JSON.stringify( birdDTO )], {
@@ -37,17 +37,7 @@ export class BirdsService {
       })
       
   );
-  this.httpClient.put<any>(`${this.apiUrl}update/${birdId}`, birdForm).subscribe({
-    next: (response) => {
-      console.log('Pássaro criado com sucesso:', response);
-    },
-    error: (error) => {
-      console.error('Erro ao criar o pássaro:', error);
-    },
-    complete: () => {
-      console.log('Requisição completa.');
-    }
-  });
+  return this.httpClient.put<any>(`${this.apiUrl}update/${birdId}`, birdForm);
   
   }
 }

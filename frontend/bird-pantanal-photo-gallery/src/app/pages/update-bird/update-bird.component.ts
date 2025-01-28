@@ -1,72 +1,44 @@
-import {  } from './../../dto/bird.dto';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { BirdDTO } from '../../dto/bird.dto';
-import { ActivatedRoute } from '@angular/router';
+import { MessageServiceService } from '../../services/message/message-service.service';
 import { BirdsService } from '../../services/bird/birds.service';
-import { switchMap } from 'rxjs';
+import { BirdDTO } from '../../dto/bird.dto';
+import { UpdateBirdFormComponent } from '../../components/update-bird-form/update-bird-form.component';
+import { MessagesForRequestComponent } from '../../components/messages-for-request/messages-for-request.component';
+import { LoadingSpinnerComponent } from '../../components/loading-spinner/loading-spinner.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-update-bird',
-  imports: [ReactiveFormsModule, FormsModule],
+  imports: [UpdateBirdFormComponent, MessagesForRequestComponent, LoadingSpinnerComponent, CommonModule],
   templateUrl: './update-bird.component.html',
   styleUrl: './update-bird.component.scss'
 })
 export class UpdateBirdComponent {
-  birdForm: FormGroup;
-  selectedFile: File | null = null;
-  birdDTO: BirdDTO = new BirdDTO ('','','','');
-  birdId!: string;
-  bird: any;
 
-  constructor(private fb:FormBuilder, private route: ActivatedRoute, private birdService: BirdsService){
-    this.birdForm = this.fb.group({
-      name:[''],
-      scientificName: [''],
-      description: [''],
-      predominantColor: [''],
-      image: [null]
-    })
-  }
-ngOnInit():void{
-  this.route.queryParams.subscribe((params) => {
-    this.birdId = params['id'];
-  });
-  this.bird = this.birdService.getBirdById(this.birdId).subscribe(data=>{
-    this.bird =data;
-  });
-}
-onSubmit(){
-    const birdData = this.getBirdData();
-    this.updateBirdDTO(birdData);
-
-    const formData = new FormData();
+   successMessage$;
+      errorMessage$;
+      isLoading = false;
     
-    if (this.selectedFile) {
-      formData.append('image', this.selectedFile, this.selectedFile.name);
+      constructor(private messageService: MessageServiceService, private birdService:BirdsService) {
+        this.successMessage$ = this.messageService.sucessMessage$;
+        this.errorMessage$ = this.messageService.errorMessage$;
+      }
+  
+  onSubmit(eventData: { birdDTO: BirdDTO, formData: FormData, birdId: string}) {
+    this.isLoading = true;
+    const { birdDTO, formData, birdId } = eventData;
+  this.birdService.updateBird(birdDTO, formData, birdId).subscribe({
+    next: (response) => {
+      this.messageService.setSuccessMessage('Pássaro atualizado com sucesso.', response);
+      this.isLoading = false;
+    },
+    error: (error) => {
+      this.messageService.setErrorMessage('Erro ao atualizar o pássaro.', error);
+      this.isLoading = false;
+    },
+    complete: () => {
+      console.log('Requisição completa.');
     }
-    this.birdService.updateBird(this.birdDTO, formData, this.birdId);
+  });
 }
-onFileSelect(event: any){
-  const file = event.target.files[0];
-  if(file){
-    this.selectedFile = file;
-    this.birdForm.patchValue({image:file});
-  }
-}
-private getBirdData() {
-  return {
-    name: this.birdForm.get('name')?.value,
-    scientificName: this.birdForm.get('scientificName')?.value,
-    description: this.birdForm.get('description')?.value,
-    predominantColor: this.birdForm.get('predominantColor')?.value
-  };
-}
-private updateBirdDTO(birdData: any) {
-  this.birdDTO.name = birdData.name;
-  this.birdDTO.scientificName = birdData.scientificName;
-  this.birdDTO.description = birdData.description;
-  this.birdDTO.predominantColor = birdData.predominantColor;
-}  
-
 }

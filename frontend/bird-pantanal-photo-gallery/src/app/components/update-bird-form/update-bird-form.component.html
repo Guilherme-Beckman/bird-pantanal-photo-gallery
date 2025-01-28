@@ -1,0 +1,33 @@
+<div class="form-body">
+    <div class="form-container">
+      <form (ngSubmit)="onSubmit()" [formGroup]="birdForm">
+          <h1>Update Bird</h1>
+          <div class="form-group">
+              <label for="name">Name: </label>
+              <input type="text" id="name" formControlName="name"  value="{{ bird.name }}">
+          </div>
+          <div class="form-group">
+              <label for="scientificName">Scientific Name:</label>
+              <input type="text" id="scientificName" formControlName="scientificName" value="{{ bird.scientificName }}">
+            </div>
+        
+            <div class="form-group">
+              <label for="description">Description:</label>
+              <textarea id="description" formControlName="description" value="{{ bird.description}}"></textarea>
+            </div>
+        
+            <div class="form-group">
+              <label for="predominantColor">Predominant Color:</label>
+              <input type="text" id="predominantColor" formControlName="predominantColor" value="{{ bird.description }}">
+            </div>
+            
+            <div class="form-group">
+              <label for="image">Bird Image:</label>
+              <input type="file" id="image" (change)="onFileSelect($event)" accept="image/*" >
+            </div>
+  
+            <button type="submit" [disabled]="!birdForm.valid">Update Bird</button>
+      </form>
+  </div>
+  </div>
+  
