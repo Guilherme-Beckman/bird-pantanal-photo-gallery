@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-bird-button',
@@ -7,5 +8,10 @@ import { Component } from '@angular/core';
   styleUrl: './edit-bird-button.component.scss'
 })
 export class EditBirdButtonComponent {
-
+  @Input() birdId: string = ''; 
+  
+  constructor(private route:Router){}
+  goToUpdatePage(){
+    this.route.navigate(['/update'], {queryParams: {id: this.birdId}});
+  }
 }
