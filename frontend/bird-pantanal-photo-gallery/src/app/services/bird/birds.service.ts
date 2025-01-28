@@ -29,7 +29,7 @@ export class BirdsService {
   
   }
 
-  updateBird(birdDTO: BirdDTO,birdForm: FormData, birdId: string): void {
+  updateBird(birdDTO: BirdDTO,birdForm: FormData, birdId: string): Observable<any> {  
     birdForm.append(
       'bird',
       new Blob([JSON.stringify( birdDTO )], {
@@ -37,7 +37,7 @@ export class BirdsService {
       })
       
   );
-  this.httpClient.put<any>(`${this.apiUrl}update/${birdId}`, birdForm);
+  return this.httpClient.put<any>(`${this.apiUrl}update/${birdId}`, birdForm);
   
   }
 }
