@@ -1,5 +1,5 @@
 import { Component, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { BirdDTO } from '../../dto/bird.dto';
 import { ActivatedRoute } from '@angular/router';
 import { BirdsService } from '../../services/bird/birds.service';
@@ -7,7 +7,7 @@ import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-update-bird-form',
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './update-bird-form.component.html',
   styleUrl: './update-bird-form.component.scss'
 })
