@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { BirdDTO } from '../../dto/bird.dto';
 import { ActivatedRoute } from '@angular/router';
 import { BirdsService } from '../../services/bird/birds.service';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-update-bird-form',
@@ -16,7 +17,7 @@ export class UpdateBirdFormComponent {
   birdDTO: BirdDTO = new BirdDTO ('','','','');
   birdId!: string;
   bird: any;
-
+  @Output() onBirdUpdate = new EventEmitter<{birdDTO: BirdDTO, formData: FormData, birdId: string}>();
   constructor(private fb:FormBuilder, private route: ActivatedRoute, private birdService: BirdsService){
     this.birdForm = this.fb.group({
       name:[''],
@@ -43,17 +44,7 @@ onSubmit(){
     if (this.selectedFile) {
       formData.append('image', this.selectedFile, this.selectedFile.name);
     }
-    this.birdService.updateBird(this.birdDTO, formData, this.birdId).subscribe({
-      next: (response) => {
-        console.log('Pássaro criado com sucesso:', response);
-      },
-      error: (error) => {
-        console.error('Erro ao criar o pássaro:', error);
-      },
-      complete: () => {
-        console.log('Requisição completa.');
-      }
-    });;
+    this.onBirdUpdate.emit({birdDTO: this.birdDTO, formData, birdId: this.birdId}); 
 }
 onFileSelect(event: any){
   const file = event.target.files[0];
