@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { MessageServiceService } from '../../services/message/message-service.service';
 import { BirdsService } from '../../services/bird/birds.service';
 import { BirdDTO } from '../../dto/bird.dto';
+import { UpdateBirdFormComponent } from '../../components/update-bird-form/update-bird-form.component';
 
 @Component({
   selector: 'app-update-bird',
-  imports: [],
+  imports: [UpdateBirdFormComponent],
   templateUrl: './update-bird.component.html',
   styleUrl: './update-bird.component.scss'
 })
