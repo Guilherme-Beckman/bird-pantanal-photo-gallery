@@ -15,9 +15,8 @@ export class CreateBirdFormComponent {
   birdForm: FormGroup;
   birdDTO: BirdDTO = new BirdDTO('', '', '', '');
   selectedFile: File | null = null;
-  @Output() sucessMessage = new EventEmitter<Observable<any>>(); 
-  @Output() errorMessage = new EventEmitter<Observable<any>>(); 
-    constructor(private fb: FormBuilder, private birdService:BirdsService){
+  @Output() onCreateSubmit = new EventEmitter<{birdDTO: BirdDTO, formData: FormData}>(); 
+    constructor(private fb: FormBuilder){
       this.birdForm = this.fb.group({
         name:['',[Validators.required]],
         scientificName: ['', [Validators.required]],
@@ -42,9 +41,10 @@ export class CreateBirdFormComponent {
         if (this.selectedFile) {
           formData.append('image', this.selectedFile, this.selectedFile.name);
         }
-    
-        this.birdService.createBird(this.birdDTO, formData);
+        console.log('Formulário de pássaro:', this.birdForm);
+        this.onCreateSubmit.emit({ birdDTO: this.birdDTO, formData });
       }
+        
     }
     private getBirdData() {
       return {

@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { LoadingSpinnerComponent } from '../../components/loading-spinner/loading-spinner.component';
 import { MessagesForRequestComponent } from '../../components/messages-for-request/messages-for-request.component';
 import { CommonModule } from '@angular/common';
+import { BirdsService } from '../../services/bird/birds.service';
+import { BirdDTO } from '../../dto/bird.dto';
 
 @Component({
   selector: 'app-create-bird',
@@ -17,19 +19,29 @@ export class CreateBirdComponent {
     errorMessage$;
     isLoading = false;
   
-    constructor(private messageService: MessageServiceService) {
+    constructor(private messageService: MessageServiceService, private birdService:BirdsService) {
       this.successMessage$ = this.messageService.sucessMessage$;
       this.errorMessage$ = this.messageService.errorMessage$;
     }
-  
-    sucessMessage(event: Observable<any>): void {
+
+
+    onSubmit(eventData: { birdDTO: BirdDTO, formData: FormData}) {
+      console.log('Evento recebido:', eventData);
+      const { birdDTO, formData } = eventData;
       this.isLoading = true;
-      
-      
+      this.birdService.createBird(birdDTO, formData).subscribe
+      ({
+        next: (response) => {
+          this.messageService.setSuccessMessage('Pássaro criado com sucesso:', response);
+          this.isLoading = false;
+        },
+        error: (error) => {
+          this.messageService.setErrorMessage('Erro ao criar o pássaro:', error);
+          this.isLoading = false;
+        },
+        complete: () => {
+          console.log('Requisição completa.');
+        }
+      });
     }
-    errorMessage(event: Observable<any>): void {
-      this.isLoading = true;
-     
-      
     }
-}
