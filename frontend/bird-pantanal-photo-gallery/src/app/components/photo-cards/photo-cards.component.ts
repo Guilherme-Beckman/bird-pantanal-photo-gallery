@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { BirdsService } from '../../services/bird/birds.service';
 import { EditBirdButtonComponent } from '../edit-bird-button/edit-bird-button.component';
 import { DeleteBirdButtonComponent } from '../delete-bird-button/delete-bird-button.component';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-photo-cards',
@@ -13,8 +14,10 @@ import { DeleteBirdButtonComponent } from '../delete-bird-button/delete-bird-but
 export class PhotoCardsComponent {
   cards: any[] = [];
   visibleCards: any[] = [];
-  constructor(private birdsService: BirdsService){}
+  isLoggedIn: boolean = false;
+  constructor(private birdsService: BirdsService, private authService: AuthService){}
   ngOnInit(){
+    this.isLoggedIn = this.authService.isAuthenticated();
     this.birdsService.getAllBirdsForCards().subscribe(data=>{
       this.cards = data;
       this.visibleCards = this.cards.slice(0,6);
