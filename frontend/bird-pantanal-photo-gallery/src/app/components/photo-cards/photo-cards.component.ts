@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { BirdsService } from '../../services/bird/birds.service';
-import { EditBirdButtonComponent } from '../../edit-bird-button/edit-bird-button.component';
+import { EditBirdButtonComponent } from '../edit-bird-button/edit-bird-button.component';
 
 @Component({
   selector: 'app-photo-cards',
