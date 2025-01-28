@@ -28,11 +28,14 @@ export class LoginComponent {
     const { email, password } = event;
     this.authService.login(email, password).subscribe({
       next: (next) =>{
+        this.isLoading = false,
+        this.authService.saveToken(next.token),
         this.messageService.setSuccessMessage(
           'Login bem-sucedido, token armazenado!', next
         );
       },
       error: (error) =>  {
+        this.isLoading = false,
         this.messageService.setErrorMessage(
           'Erro ao fazer login: ', error
         );

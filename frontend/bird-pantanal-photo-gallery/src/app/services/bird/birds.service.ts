@@ -25,7 +25,8 @@ export class BirdsService {
       })
       
   );
-  this.httpClient.post<any>(`${this.apiUrl}create`, birdForm/*, options*/).subscribe({
+  this.httpClient.post<any>(`${this.apiUrl}create`, birdForm/*, options*/).subscribe
+  ({
     next: (response) => {
       console.log('Pássaro criado com sucesso:', response);
     },
@@ -35,7 +36,7 @@ export class BirdsService {
     complete: () => {
       console.log('Requisição completa.');
     }
-  });
+  })
   
   }
 
