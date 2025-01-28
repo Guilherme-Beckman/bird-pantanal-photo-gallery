@@ -25,13 +25,16 @@ export class UpdateBirdComponent {
       }
   
   onSubmit(eventData: { birdDTO: BirdDTO, formData: FormData, birdId: string}) {
+    this.isLoading = true;
     const { birdDTO, formData, birdId } = eventData;
   this.birdService.updateBird(birdDTO, formData, birdId).subscribe({
     next: (response) => {
-      console.log('Pássaro criado com sucesso:', response);
+      this.messageService.setSuccessMessage('Pássaro atualizado com sucesso.', response);
+      this.isLoading = false;
     },
     error: (error) => {
-      console.error('Erro ao criar o pássaro:', error);
+      this.messageService.setErrorMessage('Erro ao atualizar o pássaro.', error);
+      this.isLoading = false;
     },
     complete: () => {
       console.log('Requisição completa.');
