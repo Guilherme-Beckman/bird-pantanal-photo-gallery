@@ -1,8 +1,32 @@
-button{
+button {
     width: 40%;
-    background-color: rgba(133, 159, 230, 0.425);
+    background-color:  rgba(133, 159, 230, 0.425);
     border: solid 1px black;
     border-radius: 5px;
     margin: 0% 5%;
     font-size: large;
-}
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: rgba(230, 80, 80, 0.5);
+    transform: translateY(-2px);
+  }
+  
+  button:active {
+    background-color: rgba(200, 70, 70, 0.7);
+    transform: translateY(0);
+  }
+  
+  button i {
+    margin-right: 8px;
+    font-size: 1.2em;
+  }
+  
+  button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(230, 133, 133, 0.5);
+  }
+ 
