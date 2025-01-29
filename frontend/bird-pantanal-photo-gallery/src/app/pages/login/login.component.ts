@@ -6,6 +6,7 @@ import { LoadingSpinnerComponent } from '../../components/loading-spinner/loadin
 import { MessagesForRequestComponent } from '../../components/messages-for-request/messages-for-request.component';
 import { LoginFormComponent } from '../../components/login-form/login-form.component';
 import { MessageServiceService } from '../../services/message/message-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,7 @@ export class LoginComponent {
   errorMessage$;
   isLoading = false;
 
-  constructor(private authService: AuthService, private messageService: MessageServiceService) {
+  constructor(private authService: AuthService, private messageService: MessageServiceService, private router: Router) {  
     this.successMessage$ = this.messageService.sucessMessage$;
     this.errorMessage$ = this.messageService.errorMessage$;
   }
@@ -33,6 +34,9 @@ export class LoginComponent {
         this.messageService.setSuccessMessage(
           'Login bem-sucedido, token armazenado!', next
         );
+        setTimeout(() => {
+          this.router.navigate(['/']); // Substitua pela rota desejada
+        }, 500);
       },
       error: (error) =>  {
         this.isLoading = false,
