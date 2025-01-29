@@ -6,6 +6,7 @@ import { UpdateBirdFormComponent } from '../../components/update-bird-form/updat
 import { MessagesForRequestComponent } from '../../components/messages-for-request/messages-for-request.component';
 import { LoadingSpinnerComponent } from '../../components/loading-spinner/loading-spinner.component';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-update-bird',
@@ -19,7 +20,7 @@ export class UpdateBirdComponent {
       errorMessage$;
       isLoading = false;
     
-      constructor(private messageService: MessageServiceService, private birdService:BirdsService) {
+      constructor(private messageService: MessageServiceService, private birdService:BirdsService, private router: Router) {    
         this.successMessage$ = this.messageService.sucessMessage$;
         this.errorMessage$ = this.messageService.errorMessage$;
       }
@@ -31,6 +32,9 @@ export class UpdateBirdComponent {
     next: (response) => {
       this.messageService.setSuccessMessage('Pássaro atualizado com sucesso.', response);
       this.isLoading = false;
+      setTimeout(() => {
+        this.router.navigate(['/']); // Substitua pela rota desejada
+      }, 500);
     },
     error: (error) => {
       this.messageService.setErrorMessage('Erro ao atualizar o pássaro.', error);

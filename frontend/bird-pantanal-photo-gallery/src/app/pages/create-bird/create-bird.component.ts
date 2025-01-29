@@ -7,6 +7,7 @@ import { MessagesForRequestComponent } from '../../components/messages-for-reque
 import { CommonModule } from '@angular/common';
 import { BirdsService } from '../../services/bird/birds.service';
 import { BirdDTO } from '../../dto/bird.dto';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-bird',
@@ -19,7 +20,7 @@ export class CreateBirdComponent {
     errorMessage$;
     isLoading = false;
   
-    constructor(private messageService: MessageServiceService, private birdService:BirdsService) {
+    constructor(private messageService: MessageServiceService, private birdService:BirdsService, private router: Router) {    
       this.successMessage$ = this.messageService.sucessMessage$;
       this.errorMessage$ = this.messageService.errorMessage$;
     }
@@ -34,6 +35,9 @@ export class CreateBirdComponent {
         next: (response) => {
           this.messageService.setSuccessMessage('Pássaro criado com sucesso:', response);
           this.isLoading = false;
+          setTimeout(() => {
+            this.router.navigate(['/']); // Substitua pela rota desejada
+          }, 500);
         },
         error: (error) => {
           this.messageService.setErrorMessage('Erro ao criar o pássaro:', error);
