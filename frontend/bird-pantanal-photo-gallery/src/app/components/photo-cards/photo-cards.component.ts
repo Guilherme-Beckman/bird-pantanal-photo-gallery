@@ -16,7 +16,6 @@ import { CardDownloadService } from '../../services/card-download/card-download.
 export class PhotoCardsComponent {
   @Input() searchTerm: string = ""; 
   @Output() isLoadingEvent = new EventEmitter<boolean>();
-  @Input() cardData: any;
 
   cards: any[] = [];
   visibleCards: any[] = [];
@@ -54,9 +53,10 @@ export class PhotoCardsComponent {
     const boolean = event;
     this.isLoadingEvent.emit(event);
   }
-  downloadCard(): void {
-    const htmlContent = this.cardDownloadService.generateCardHTML(this.cardData);
-    const filename = `${this.cardData.name.replace(/\s+/g, '_')}_card.html`;
+  downloadCard(cardData: any): void {
+    console.log(cardData);
+    const htmlContent = this.cardDownloadService.generateCardHTML(cardData);
+    const filename = `${cardData.name.replace(/\s+/g, '_')}_card.html`;
     this.cardDownloadService.downloadFile(htmlContent, filename);
   }
 }

@@ -10,41 +10,101 @@ export class CardDownloadService {
       <html>
       <head>
         <style>
-          .card {
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            padding: 16px;
-            max-width: 300px;
+          * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
             font-family: Arial, sans-serif;
           }
-          .card-image {
+
+          body {
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+          }
+
+          .card-container {
+            display: flex;
+            justify-content: center;
+            padding: 2rem;
+            margin: 0 auto;
+            max-width: 80%;
+          }
+
+          .card {
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            width: 320px;
+            padding: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            text-align: center;
+          }
+
+          .card:hover {
+            transform: translateY(-10px);
+          }
+
+          .card img {
             width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 4px;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 15px;
           }
-          .card-title {
-            font-size: 1.2em;
-            margin: 10px 0;
-            color: ${cardData.predominantColor};
+
+          .card-header h2 {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 10px;
           }
-          .card-scientific {
-            font-style: italic;
-            color: #666;
+
+          .card-body p {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 10px;
           }
-          .card-description {
-            margin-top: 10px;
-            font-size: 0.9em;
+
+          .card-body p span {
+            font-weight: bold;
+            color: #333;
+          }
+
+          .read-more-button {
+            margin-top: 15px;
+          }
+
+          .read-more-button button {
+            font-size: 1rem;
+            padding: 10px 15px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+          }
+
+          .read-more-button button:hover {
+            background-color: #2980b9;
           }
         </style>
       </head>
       <body>
-        <div class="card">
-          <img src="${cardData.imageUrl}" class="card-image" alt="${cardData.name}">
-          <h2 class="card-title">${cardData.name}</h2>
-          <p class="card-scientific">${cardData.scientificName}</p>
-          <p class="card-description">${cardData.description}</p>
-        </div>
+        <section class="card-container">
+          <div class="card">
+            <header class="card-header">
+              <h2>${cardData.name}</h2>
+            </header>
+            <img src="${cardData.imageUrl}" alt="Image of ${cardData.name}">
+            <div class="card-body">
+              <p>${cardData.description}</p>
+              <p><span>Nome Científico:</span> ${cardData.scientificName}</p>
+              <p><span>Cor Predominante:</span> ${cardData.predominantColor}</p>
+            </div>
+          </div>
+        </section>
       </body>
       </html>
     `;
