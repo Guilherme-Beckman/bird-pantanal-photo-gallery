@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { Component, Input, Output, SimpleChanges } from '@angular/core';
 import { BirdsService } from '../../services/bird/birds.service';
 import { EditBirdButtonComponent } from '../edit-bird-button/edit-bird-button.component';
 import { DeleteBirdButtonComponent } from '../delete-bird-button/delete-bird-button.component';
 import { AuthService } from '../../services/auth/auth.service';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-photo-cards',
@@ -13,6 +14,7 @@ import { AuthService } from '../../services/auth/auth.service';
 })
 export class PhotoCardsComponent {
   @Input() searchTerm: string = ""; 
+  @Output() isLoadingEvent = new EventEmitter<boolean>();
   cards: any[] = [];
   visibleCards: any[] = [];
   isLoggedIn: boolean = false;
@@ -42,5 +44,9 @@ export class PhotoCardsComponent {
       card.name.toLowerCase().includes(lowerCaseSearchTerm) || 
       card.description.toLowerCase().includes(lowerCaseSearchTerm)
     );
+  }
+  deleteBird(event: boolean){
+    const boolean = event;
+    this.isLoadingEvent.emit(event);
   }
 }
