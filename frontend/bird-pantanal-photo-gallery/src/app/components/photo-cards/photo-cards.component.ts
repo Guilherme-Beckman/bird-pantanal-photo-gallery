@@ -42,7 +42,9 @@ export class PhotoCardsComponent {
     const lowerCaseSearchTerm = searchTerm.toLowerCase(); 
     this.visibleCards = this.cards.filter(card => 
       card.name.toLowerCase().includes(lowerCaseSearchTerm) || 
-      card.description.toLowerCase().includes(lowerCaseSearchTerm)
+      card.description.toLowerCase().includes(lowerCaseSearchTerm) ||
+      card.predominantColor.toLowerCase().includes(lowerCaseSearchTerm) ||
+      card.scientificName.toLowerCase().includes(lowerCaseSearchTerm)
     );
   }
   deleteBird(event: boolean){
