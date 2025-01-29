@@ -1,0 +1,32 @@
+<div class="form-body">
+  <div class="form-container">
+    <form (ngSubmit)="onSubmit()" [formGroup]="birdForm">
+      <h1>Criar Pássaro</h1>
+      <div class="form-group">
+        <label for="name">Nome:</label>
+        <input type="text" id="name" formControlName="name" required>
+      </div>
+      <div class="form-group">
+        <label for="scientificName">Nome Científico:</label>
+        <input type="text" id="scientificName" formControlName="scientificName" required>
+      </div>
+    
+      <div class="form-group">
+        <label for="description">Descrição:</label>
+        <textarea id="description" formControlName="description" required></textarea>
+      </div>
+    
+      <div class="form-group">
+        <label for="predominantColor">Cor Predominante:</label>
+        <input type="text" id="predominantColor" formControlName="predominantColor" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="image">Imagem do Pássaro:</label>
+        <input type="file" id="image" (change)="onFileSelect($event)" accept="image/*" required>
+      </div>
+  
+      <button type="submit" [disabled]="!birdForm.valid">Criar Pássaro</button>
+    </form>
+  </div>
+  </div>

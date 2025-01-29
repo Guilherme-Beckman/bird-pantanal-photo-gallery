@@ -1,8 +1,6 @@
-<app-navbar 
-title="Galeria de passaros do pantanal"
-></app-navbar>
+<app-navbar [title]="'Galeria de Pássaros do Pantanal'" (search)="onSearch($event)"></app-navbar>
 <app-summary></app-summary>
-<app-photo-cards></app-photo-cards>
+<app-photo-cards [searchTerm]="searchTerm" (isLoadingEvent)="isLoadingByDeleteBird($event)"></app-photo-cards>
 <app-social-media-section></app-social-media-section>
 <app-footer></app-footer>
-
+<app-loading-spinner [isLoading]="isLoading"></app-loading-spinner>

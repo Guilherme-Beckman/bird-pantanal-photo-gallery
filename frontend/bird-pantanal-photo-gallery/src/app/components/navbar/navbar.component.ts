@@ -1,4 +1,4 @@
-import { Component,Input } from '@angular/core';
+import { Component,EventEmitter,Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms'; 
 import { Router } from '@angular/router';
 
@@ -10,10 +10,11 @@ import { Router } from '@angular/router';
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
+  @Output() search = new EventEmitter<string>();
+  searchTerm: string = "";
   @Input() title: string="";
-  searchTerm: string="";
-
   constructor(private router: Router) {}
-
-  onSearch() {}
+  onSearch() {
+    this.search.emit(this.searchTerm); // Emit the search term
+  }
 }

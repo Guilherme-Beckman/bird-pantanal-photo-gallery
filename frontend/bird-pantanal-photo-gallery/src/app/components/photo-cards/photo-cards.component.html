@@ -1,20 +1,47 @@
 <section class="card-container">
-    <article *ngFor="let card of visibleCards; let i=index"  class="card">
-      <header class="card-header">
-        <h2>{{ card.name }}</h2>
-      </header>
-      <img src="{{ card.imageUrl }}" alt="alt image " loading="lazy">
-      <div *ngIf="card.showMore" class="card-body">
-        <p>{{ card.description }}</p>
-        <p>Nome Cientifico: {{ card.scientificName }}</p>
-        <p>Cor Predominante: {{ card.predominantColor }}</p>
-      </div>
-      <div class="read-more-button">
-        <button (click)="showMoreInfo(i)">Read More <i [class]="card.showMore ? 'ri-arrow-up-s-line' : 'ri-arrow-down-s-line'"></i></button>
-      </div>
-    </article>
-    <div *ngIf="cards.length > visibleCards.length">
-      <button (click)="loadMore()">Carregar Mais</button>
-     </div>
-  </section>
-  
+  <div *ngIf="visibleCards.length === 0" class="no-birds-message">
+    <p>Não há pássaros disponíveis para exibição.</p>
+  </div>
+  <article
+    *ngFor="let card of visibleCards; let i = index"
+    class="card"
+    [class.show-more]="card.showMore"
+  >
+    <app-edit-bird-button
+      [birdId]="card.id"
+      [isLoggedIn]="isLoggedIn"
+    ></app-edit-bird-button>
+    <app-delete-bird-button
+      [birdId]="card.id"
+      [isLoggedIn]="isLoggedIn"
+      (deleteBirdEvent)="deleteBird($event)"
+    ></app-delete-bird-button>
+
+    <header class="card-header">
+      <h2>{{ card.name }}</h2>
+      <button class="download-button" (click)="downloadCard(this.cards[i])">
+        <i class="ri-download-line"></i> 
+      </button>
+    </header>
+
+    <img src="{{ card.imageUrl }}" alt="Imagem de {{ card.name }}" loading="lazy" />
+
+    <div *ngIf="card.showMore" class="card-body">
+      <p>{{ card.description }}</p>
+      <p><strong>Nome Científico:</strong> {{ card.scientificName }}</p>
+      <p><strong>Cor Predominante:</strong> {{ card.predominantColor }}</p>
+    </div>
+
+    <div class="read-more-button">
+      <button (click)="showMoreInfo(i)">
+        Ler Mais
+        <i [class]="card.showMore ? 'ri-arrow-up-s-line' : 'ri-arrow-down-s-line'"></i>
+      </button>
+    </div>
+  </article>
+  <div class="load-more-button" *ngIf="cards.length > visibleCards.length && visibleCards.length >= 6">
+  <button (click)="loadMore()">Carregar Mais</button>
+</div>
+
+</section>
+

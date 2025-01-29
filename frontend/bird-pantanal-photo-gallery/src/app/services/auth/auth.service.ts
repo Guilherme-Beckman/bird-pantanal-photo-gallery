@@ -7,23 +7,38 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
   private apiUrl = 'http://localhost:8080/auth/login';
-  constructor(private httpClient:HttpClient) { }
 
-  login(email: string, password: string):Observable<any>{
+  constructor(private httpClient: HttpClient) {}
+
+  login(email: string, password: string): Observable<any> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.httpClient.post<any>(this.apiUrl, {email, password, headers})
+    return this.httpClient.post<any>(this.apiUrl, { email, password, headers });
   }
-  saveToken(token: string): void{
-    localStorage.setItem("authToken",token);
+
+  saveToken(token: string): void {
+    if (this.isLocalStorageAvailable()) {
+      localStorage.setItem('authToken', token);
+    }
   }
-  getToken():string | null{
-    return localStorage.getItem("authToken");
+
+  getToken(): string | null {
+    if (this.isLocalStorageAvailable()) {
+      return localStorage.getItem('authToken');
+    }
+    return null;
   }
+
   logout(): void {
-    localStorage.removeItem('authToken');
+    if (this.isLocalStorageAvailable()) {
+      localStorage.removeItem('authToken');
+    }
   }
 
   isAuthenticated(): boolean {
     return !!this.getToken();
+  }
+
+  private isLocalStorageAvailable(): boolean {
+    return typeof window !== 'undefined' && !!window.localStorage;
   }
 }

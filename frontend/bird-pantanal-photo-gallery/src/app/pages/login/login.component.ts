@@ -1,31 +1,50 @@
+import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth/auth.service';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { LoadingSpinnerComponent } from '../../components/loading-spinner/loading-spinner.component';
+import { MessagesForRequestComponent } from '../../components/messages-for-request/messages-for-request.component';
+import { LoginFormComponent } from '../../components/login-form/login-form.component';
+import { MessageServiceService } from '../../services/message/message-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, FormsModule],
+  imports: [ReactiveFormsModule, FormsModule, CommonModule, LoadingSpinnerComponent, MessagesForRequestComponent, LoginFormComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-  email: string = '';
-  password: string ='';
+  successMessage$;
+  errorMessage$;
+  isLoading = false;
 
-  constructor(private authService: AuthService){}
+  constructor(private authService: AuthService, private messageService: MessageServiceService, private router: Router) {  
+    this.successMessage$ = this.messageService.sucessMessage$;
+    this.errorMessage$ = this.messageService.errorMessage$;
+  }
 
-  onLogin():void{
-    this.authService.login(this.email, this.password).subscribe({
-      next: (response) =>{
-        this.authService.saveToken(response.token);
-        console.log('Login bem-sucedido, token armazenado!');
+  onLogin(event: { email: string; password: string }): void {
+    this.isLoading = true;
+    const { email, password } = event;
+    this.authService.login(email, password).subscribe({
+      next: (next) =>{
+        this.isLoading = false,
+        this.authService.saveToken(next.token),
+        this.messageService.setSuccessMessage(
+          'Login bem-sucedido, token armazenado!', next
+        );
+        setTimeout(() => {
+          this.router.navigate(['/']); // Substitua pela rota desejada
+        }, 500);
       },
-      error: (error) => {
-        console.error('Erro ao fazer login', error);
+      error: (error) =>  {
+        this.isLoading = false,
+        this.messageService.setErrorMessage(
+          'Erro ao fazer login: ', error
+        );
       },
-      complete: () => {
-        console.log('Requisição de login completa.');
-      }
+      complete: () => this.isLoading = false,
     });
-  };
+  }
 }
