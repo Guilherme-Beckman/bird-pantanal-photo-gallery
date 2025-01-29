@@ -41,6 +41,41 @@
     color: #333;
   }
 
+  .load-more-button {
+    text-align: center;
+    margin: 20px;
+  }
+
+  .load-more-button button {
+    background-color: #28a745;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+  }
+
+  .load-more-button button:hover {
+    background-color: #218838;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .load-more-button button:active {
+    background-color: #1e7e34;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+    transform: translateY(0);
+  }
+
+  .load-more-button button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(72, 180, 97, 0.5);
+  }
 
   @media (max-width: 768px) {
     .card-container {
