@@ -1,10 +1,9 @@
-// download.service.ts
 import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DownloadService {
+export class CardDownloadService {
   generateCardHTML(cardData: any): string {
     return `
       <!DOCTYPE html>

@@ -5,6 +5,7 @@ import { EditBirdButtonComponent } from '../edit-bird-button/edit-bird-button.co
 import { DeleteBirdButtonComponent } from '../delete-bird-button/delete-bird-button.component';
 import { AuthService } from '../../services/auth/auth.service';
 import { EventEmitter } from '@angular/core';
+import { CardDownloadService } from '../../services/card-download/card-download.service';
 
 @Component({
   selector: 'app-photo-cards',
@@ -15,10 +16,12 @@ import { EventEmitter } from '@angular/core';
 export class PhotoCardsComponent {
   @Input() searchTerm: string = ""; 
   @Output() isLoadingEvent = new EventEmitter<boolean>();
+  @Input() cardData: any;
+
   cards: any[] = [];
   visibleCards: any[] = [];
   isLoggedIn: boolean = false;
-  constructor(private birdsService: BirdsService, private authService: AuthService){}
+  constructor(private birdsService: BirdsService, private authService: AuthService, private cardDownloadService: CardDownloadService){}
   ngOnInit(){
     this.isLoggedIn = this.authService.isAuthenticated();
     this.birdsService.getAllBirdsForCards().subscribe(data=>{
@@ -50,5 +53,10 @@ export class PhotoCardsComponent {
   deleteBird(event: boolean){
     const boolean = event;
     this.isLoadingEvent.emit(event);
+  }
+  downloadCard(): void {
+    const htmlContent = this.cardDownloadService.generateCardHTML(this.cardData);
+    const filename = `${this.cardData.name.replace(/\s+/g, '_')}_card.html`;
+    this.cardDownloadService.downloadFile(htmlContent, filename);
   }
 }
