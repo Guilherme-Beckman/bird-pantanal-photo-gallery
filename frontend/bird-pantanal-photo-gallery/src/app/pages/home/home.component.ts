@@ -12,5 +12,9 @@ import { FooterComponent } from '../../components/footer/footer.component';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
+  searchTerm: string = "";
 
+  onSearch(searchTerm: string) {
+    this.searchTerm = searchTerm; 
+  }
 }

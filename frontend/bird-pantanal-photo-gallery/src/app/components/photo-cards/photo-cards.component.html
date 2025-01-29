@@ -15,7 +15,7 @@
         <button (click)="showMoreInfo(i)">Read More <i [class]="card.showMore ? 'ri-arrow-up-s-line' : 'ri-arrow-down-s-line'"></i></button>
       </div>
     </article>
-    <div *ngIf="cards.length > visibleCards.length">
+    <div *ngIf="cards.length > visibleCards.length && visibleCards.length > 6">
       <button (click)="loadMore()">Carregar Mais</button>
      </div>
   </section>

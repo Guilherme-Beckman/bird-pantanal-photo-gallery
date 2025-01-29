@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { BirdsService } from '../../services/bird/birds.service';
 import { EditBirdButtonComponent } from '../edit-bird-button/edit-bird-button.component';
 import { DeleteBirdButtonComponent } from '../delete-bird-button/delete-bird-button.component';
@@ -12,6 +12,7 @@ import { AuthService } from '../../services/auth/auth.service';
   styleUrl: './photo-cards.component.scss'
 })
 export class PhotoCardsComponent {
+  @Input() searchTerm: string = ""; 
   cards: any[] = [];
   visibleCards: any[] = [];
   isLoggedIn: boolean = false;
@@ -23,11 +24,23 @@ export class PhotoCardsComponent {
       this.visibleCards = this.cards.slice(0,6);
     });
   }
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['searchTerm']) {
+      this.filterCards(this.searchTerm); 
+    }
+  }
   showMoreInfo(index: number){
-    this.visibleCards[index].showMore = !this.visibleCards[index].showMore;
+      this.visibleCards[index].showMore = !this.visibleCards[index].showMore;
   } 
   loadMore(){
     const nextCards = this.cards.slice(this.visibleCards.length, this.visibleCards.length + 6);
     this.visibleCards = [...this.visibleCards, ...nextCards]
+  }
+  filterCards(searchTerm: string) {
+    const lowerCaseSearchTerm = searchTerm.toLowerCase(); 
+    this.visibleCards = this.cards.filter(card => 
+      card.name.toLowerCase().includes(lowerCaseSearchTerm) || 
+      card.description.toLowerCase().includes(lowerCaseSearchTerm)
+    );
   }
 }
