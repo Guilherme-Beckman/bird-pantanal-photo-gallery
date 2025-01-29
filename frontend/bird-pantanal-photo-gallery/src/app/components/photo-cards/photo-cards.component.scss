@@ -56,7 +56,6 @@
     font-size: 1rem;
     color: #333;
   }
-
   .load-more-button {
     text-align: center;
     margin: 20px;
@@ -121,6 +120,13 @@
   .button-icon {
     font-size: 16px;
   }
+  .no-birds-message {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #666;
+    padding: 20px;
+  }
+  
 
   @media (max-width: 768px) {
     .card-container {

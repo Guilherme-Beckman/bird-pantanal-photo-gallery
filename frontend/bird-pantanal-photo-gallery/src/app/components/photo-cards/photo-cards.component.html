@@ -1,4 +1,7 @@
 <section class="card-container">
+  <div *ngIf="visibleCards.length === 0" class="no-birds-message">
+    <p>Não há pássaros disponíveis para exibição.</p>
+  </div>
   <article
     *ngFor="let card of visibleCards; let i = index"
     class="card"
@@ -36,8 +39,9 @@
       </button>
     </div>
   </article>
-</section>
-
-<div class="load-more-button" *ngIf="cards.length > visibleCards.length && visibleCards.length >= 6">
+  <div class="load-more-button" *ngIf="cards.length > visibleCards.length && visibleCards.length >= 6">
   <button (click)="loadMore()">Carregar Mais</button>
 </div>
+
+</section>
+
