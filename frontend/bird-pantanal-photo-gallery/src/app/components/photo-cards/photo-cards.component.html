@@ -1,5 +1,5 @@
 <section class="card-container">
-    <article *ngFor="let card of visibleCards; let i=index"  class="card">
+    <article *ngFor="let card of visibleCards; let i=index"  class="card" [class.show-more]="card.showMore">
       <header class="card-header">
         <app-edit-bird-button [birdId]="card.id" [isLoggedIn]="isLoggedIn" ></app-edit-bird-button>
         <app-delete-bird-button [birdId]="card.id" [isLoggedIn]="isLoggedIn" (deleteBirdEvent)="deleteBird($event)"></app-delete-bird-button>
