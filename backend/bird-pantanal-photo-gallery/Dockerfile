@@ -1,5 +1,6 @@
 # Etapa 1: Build da aplicação
 FROM maven:3.8.5-openjdk-17 as build-stage
+
 WORKDIR /app
 COPY pom.xml .
 COPY src ./src
