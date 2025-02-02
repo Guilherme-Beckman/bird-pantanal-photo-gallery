@@ -17,7 +17,7 @@ import com.projects.bird_pantanal_photo_gallery.service.AuthService;
 public class AuthController {
 	@Autowired
 	private AuthService authService;
-	@CrossOrigin(origins = "http://localhost:4200")
+	@CrossOrigin(origins = "http://frontend:4200")
     @PostMapping("/login")
     public ResponseEntity<ResponseDTO> login(@RequestBody LoginRequestDTO body){
     	ResponseDTO responseDTO = this.authService.login(body);
