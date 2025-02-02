@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://host.docker.internal:8080/auth/login';
+  private apiUrl = 'http://backend:8080/auth/login';
 
   constructor(private httpClient: HttpClient) {}
 
