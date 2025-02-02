@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://bird-pantanal-photo-gallery-backend-1:8080/auth/login';
+  private apiUrl = 'http://54.173.220.207:8080/auth/login';
 
   constructor(private httpClient: HttpClient) {}
 
