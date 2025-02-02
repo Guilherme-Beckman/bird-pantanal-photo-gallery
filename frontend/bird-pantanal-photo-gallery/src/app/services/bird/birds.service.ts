@@ -8,7 +8,7 @@ import { BirdDTO } from '../../dto/bird.dto';
   providedIn: 'root'
 })
 export class BirdsService {
-  private apiUrl = 'http://localhost:8080/birds/';
+  private apiUrl = 'http://host.docker.internal:8080/birds/';
   constructor(private httpClient:HttpClient) { }
   
   getBirdById(id: string){
