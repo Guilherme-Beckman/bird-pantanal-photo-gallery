@@ -29,7 +29,7 @@ import jakarta.validation.constraints.NotNull;
 
 @RestController
 @RequestMapping("/birds")
-@CrossOrigin(origins = "http://34.227.113.151:4200")
+@CrossOrigin(origins = "http://localhost:4200")
 public class BirdController {
 	private static final String idMessage = "id must not be blank, null or empty";
 	@Autowired
