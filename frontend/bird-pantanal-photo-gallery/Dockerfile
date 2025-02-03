@@ -1,5 +1,5 @@
 # Etapa 1: Construção
-FROM node:18 AS build
+FROM node:latest AS build
 
 # Define o diretório de trabalho
 WORKDIR /app
@@ -20,7 +20,7 @@ FROM nginx:alpine
 COPY --from=build /app/dist /usr/share/nginx/html
 
 # Expõe a porta em que o Nginx estará rodando
-EXPOSE 4200
+EXPOSE 80
 
 # Comando para rodar o Nginx
 CMD ["nginx", "-g", "daemon off;"]
