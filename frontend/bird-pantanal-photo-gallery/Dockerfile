@@ -1,5 +1,5 @@
 # Etapa 1: Build da aplicação
-FROM node:21 as build-stage
+FROM node:latest as build-stage
 WORKDIR /app
 COPY . .
 RUN npm install
