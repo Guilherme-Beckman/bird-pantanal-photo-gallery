@@ -1,9 +1,27 @@
-# Etapa 1: Build da aplicação
-FROM node:latest as build-stage
+# Etapa 1: Construção
+FROM node:18 AS build
+
+# Define o diretório de trabalho
 WORKDIR /app
+
+# Copia os arquivos do projeto para o container
 COPY . .
+
+# Instala as dependências
 RUN npm install
-RUN npm install @angular/cli -g
+
+# Faz o build da aplicação Angular
+RUN npm run build --prod
+
+# Etapa 2: Servir a aplicação com um servidor web leve
+FROM nginx:alpine
+
+# Copia os arquivos build para o diretório padrão do nginx
+COPY --from=build /app/dist /usr/share/nginx/html
+
+# Expõe a porta em que o Nginx estará rodando
 EXPOSE 4200
-CMD ["ng", "serve", "--host", "0.0.0.0"]
+
+# Comando para rodar o Nginx
+CMD ["nginx", "-g", "daemon off;"]
 
