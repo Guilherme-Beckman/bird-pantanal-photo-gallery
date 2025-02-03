@@ -8,7 +8,7 @@ import { BirdDTO } from '../../dto/bird.dto';
   providedIn: 'root'
 })
 export class BirdsService {
-  private apiUrl = 'http://54.173.220.207:8080/birds/';
+  private apiUrl = 'http://3.86.191.231:8080/birds/';
   constructor(private httpClient:HttpClient) { }
   
   getBirdById(id: string){
