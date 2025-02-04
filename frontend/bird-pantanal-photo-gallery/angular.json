@@ -17,6 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "deployUrl": "../",
             "outputPath": "dist/bird-pantanal-photo-gallery",
             "index": "src/index.html",
             "browser": "src/main.ts",
