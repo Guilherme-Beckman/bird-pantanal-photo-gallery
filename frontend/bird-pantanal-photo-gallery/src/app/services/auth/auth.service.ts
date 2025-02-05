@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://3.86.191.231:8080/auth/login';
+  private apiUrl = 'https://api.passarosdopantanal.com.br/auth/login';
 
   constructor(private httpClient: HttpClient) {}
 
