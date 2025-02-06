@@ -9,7 +9,9 @@
 
 ## :bulb: Sobre o Projeto
 
-**Bird Pantanal Photo Gallery** Bird Pantanal Photo Gallery é uma galeria digital dedicada às aves do Pantanal, apresentando artigos detalhados sobre cada espécie. A aplicação permite explorar diversas aves com descrições informativas, proporcionando um espaço para a apreciação da fauna local.
+**Bird Pantanal Photo Gallery** 
+Bird Pantanal Photo Gallery é uma galeria digital dedicada às aves do Pantanal, apresentando artigos detalhados sobre cada espécie. A aplicação permite explorar diversas aves com descrições informativas, proporcionando um espaço para a apreciação da fauna local.
+
 **Implantação:** [Link para o projeto funcionando](https://passarosdopantanal.com.br/)
 
 ## :wrench: Tecnologias
