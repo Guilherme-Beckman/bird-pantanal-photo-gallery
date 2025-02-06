@@ -1,0 +1,22 @@
+version: '3'
+services:
+  frontend:
+    build: ./frontend/bird-pantanal-photo-gallery
+    ports:
+      - "80:80" # Porta para acessar o frontend
+    networks:
+      - app-network
+
+  backend:
+    build: ./backend/bird-pantanal-photo-gallery
+    env_file:
+      - env.env
+    ports:
+      - "8080:8080" # Porta para acessar o backend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+

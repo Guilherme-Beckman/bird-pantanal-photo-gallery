@@ -44,3 +44,19 @@ input{
 .search-container{
     display: flex;
 }
+@media (max-width: 768px) {
+    h1{
+        font-size: 20px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    h1{
+        font-size: 18px;
+    }
+  }
+  @media (max-width: 360px) {
+    h1{
+        font-size: 15px;
+    }
+  }

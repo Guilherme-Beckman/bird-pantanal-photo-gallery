@@ -8,7 +8,7 @@ import { BirdDTO } from '../../dto/bird.dto';
   providedIn: 'root'
 })
 export class BirdsService {
-  private apiUrl = 'http://localhost:8080/birds/';
+  private apiUrl = 'https://api.passarosdopantanal.com.br/birds/';
   constructor(private httpClient:HttpClient) { }
   
   getBirdById(id: string){

@@ -1,3 +1,4 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <app-messages-for-request [errorMessage]="(errorMessage$ | async) ?? ''" [successMessage]="(successMessage$ | async) ?? ''"></app-messages-for-request>
 <app-loading-spinner [isLoading]="isLoading"></app-loading-spinner>
 <app-login-form  [isLoading]="isLoading" (loginSubmit)="onLogin($event)" ></app-login-form>
