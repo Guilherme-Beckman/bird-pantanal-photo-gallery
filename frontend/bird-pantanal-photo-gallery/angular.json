@@ -57,10 +57,10 @@
       "maximumWarning": "4kB",
       "maximumError": "6kB"
     }
-  ]
+  ],
 
 
-              "outputHashing": "all"
+              "outputHashing": "all",
               "optimization": {
   "styles": {
     "inlineCritical": false
@@ -70,7 +70,7 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
                "optimization": {
   "styles": {
     "inlineCritical": false
