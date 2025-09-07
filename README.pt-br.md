@@ -6,6 +6,7 @@
 <p align="center">
         <a aria-label="Portfólio - Guilherme Beckman" href="https://github.com/Guilherme-Beckman"><img src="https://img.shields.io/badge/Portf%C3%B3lio-Guilherme%20Beckman-931ad9" /></a> 
 </p>
+🌍 Idiomas: [English](README.md) | [Português](README.pt-br.md)
 
 ## :bulb: Sobre o Projeto
 
