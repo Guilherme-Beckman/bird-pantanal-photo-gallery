@@ -4,30 +4,33 @@
 </p>
 
 <p align="center">
-        <a aria-label="Portfólio - Guilherme Beckman" href="https://github.com/Guilherme-Beckman"><img src="https://img.shields.io/badge/Portf%C3%B3lio-Guilherme%20Beckman-931ad9" /></a> 
+        <a aria-label="Portfolio - Guilherme Beckman" href="https://github.com/Guilherme-Beckman"><img src="https://img.shields.io/badge/Portfolio-Guilherme%20Beckman-931ad9" /></a> 
 </p>
 
-## :bulb: Sobre o Projeto
+🌍 Idiomas: [English](README.md) | [Português](README.pt-br.md)
 
-**Bird Pantanal Photo Gallery** 
-Bird Pantanal Photo Gallery é uma galeria digital dedicada às aves do Pantanal, apresentando artigos detalhados sobre cada espécie. A aplicação permite explorar diversas aves com descrições informativas, proporcionando um espaço para a apreciação da fauna local.
 
-**Implantação:** [Link para o projeto funcionando](https://passarosdopantanal.com.br/)
+## :bulb: About the Project
 
-## :wrench: Tecnologias
+**Bird Pantanal Photo Gallery**  
+Bird Pantanal Photo Gallery is a digital gallery dedicated to Pantanal birds, presenting detailed articles about each species. The application allows exploring various birds with informative descriptions, providing a space to appreciate the local fauna.
+
+**Deployment:** [Live Project Link](https://passarosdopantanal.com.br/)
+
+## :wrench: Technologies
 
 ### Back-end
 
-- Java (linguagem selecionada)
-- Spring Boot 
-- ORM 
-- PostgreSQL (banco de dados)
-- JWT (autenticação e autorização)
-- Docker (conteinerização)
-- Docker Compose (lida com vários contêineres)
+- Java
+- Spring Boot
+- ORM
+- PostgreSQL (database)
+- JWT (authentication and authorization)
+- Docker (containerization)
+- Docker Compose (multi-container management)
 - Spring Cache
 - Spring Security
-- RFC (exceções)
+- RFC (exception handling)
 - CORS
 
 ### Front-end
@@ -36,7 +39,7 @@ Bird Pantanal Photo Gallery é uma galeria digital dedicada às aves do Pantanal
 - TypeScript
 - SCSS
 
-### Implantação
+### Deployment
 - AWS
 - AWS S3
 - EC2
@@ -45,54 +48,56 @@ Bird Pantanal Photo Gallery é uma galeria digital dedicada às aves do Pantanal
 - RDS
 - Nginx
 
-## :scroll: Funcionalidades
+## :scroll: Features
 
-Aqui estão descritas todas as funcionalidades da API:
+Here are all the API features:
 
 ### API (Back-end)
 
-- [x] Listar todos os pássaros;
-- [x] Listar os dados específicos de um pássaro;
-- [x] Criar novos pássaros;
-- [x] Atualizar dados de um pássaro;
-- [x] Deletar pássaros;
-- [x] Criar usuários;
-- [x] Fazer login gerando um token JWT para autenticação e autorização;
-- [x] Proteger rotas específicas para acesso apenas com um token JWT válido;
+- [x] List all birds
+- [x] Retrieve specific bird data
+- [x] Create new birds
+- [x] Update bird data
+- [x] Delete birds
+- [x] Create users
+- [x] Login generating a JWT token for authentication and authorization
+- [x] Protect specific routes with a valid JWT token
 
-## :book: Planejamento
+## :book: Planning
 
-### Diagramas
+### Diagrams
 
-Aqui está o diagrama de fluxo de dados da aplicação:
+Here is the data flow diagram of the application:
   <img src="https://raw.githubusercontent.com/Guilherme-Beckman/bird-pantanal-photo-gallery/main/fluxogram.png" />
 
-  ## :floppy_disk: Instalação
-  
-Primeiramente, deve-se clonar o repositório na sua máquina local com o seguinte comando:
+## :floppy_disk: Installation
+
+First, clone the repository to your local machine with the following command:
 
 ```
-git clone https://github.com/Guilherme-Beckman/bird-pantanal-photo-gallery.git
-```
+
+git clone [https://github.com/Guilherme-Beckman/bird-pantanal-photo-gallery.git](https://github.com/Guilherme-Beckman/bird-pantanal-photo-gallery.git)
+
+````
+
 ### Back-end
 
-- Um editor de código com suporte a Java, como: Spring Tool Suite (STS), VS Code (com a extensão Java) ou IntelliJ IDEA;
-- Ter o Java JDK 17 ou superior instalado e adicionado ao PATH do sistema;
-- O gerenciador de banco de dados PostgreSQL 16 instalado e configurado através do instalador oficial ou de uma imagem Docker;
-- Ter o Git instalado.
+- A code editor with Java support, such as Spring Tool Suite (STS), VS Code (with Java extension), or IntelliJ IDEA
+- Java JDK 17 or higher installed and added to the system PATH
+- PostgreSQL 16 database manager installed and configured via the official installer or a Docker image
+- Git installed
 
+### Front-end
 
+## Requirements
 
-### Front-end 
-
-## Requisitos
-
-- Um editor de código com suporte a JavaScript/TypeScript, como:
-  - [VS Code](https://code.visualstudio.com/) (minha opção)
+- A code editor with JavaScript/TypeScript support, such as:
+  - [VS Code](https://code.visualstudio.com/) (my choice)
   - [WebStorm](https://www.jetbrains.com/webstorm/)
   - [Sublime Text](https://www.sublimetext.com/)
-- Ter o [Node.js](https://nodejs.org/) instalado e adicionado ao PATH do sistema.
-- Ter o [Angular CLI](https://angular.io/cli) instalado globalmente. Caso não tenha, instale com o comando:
+- [Node.js](https://nodejs.org/) installed and added to the system PATH
+- [Angular CLI](https://angular.io/cli) installed globally. If not installed, run the following command:
 
   ```bash
   npm install -g @angular/cli
+
